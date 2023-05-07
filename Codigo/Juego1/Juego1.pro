@@ -14,12 +14,14 @@ SOURCES += \
     iniciar.cpp \
     main.cpp \
     mainwindow.cpp \
-    mision.cpp
+    mision.cpp \
+    terreno.cpp
 
 HEADERS += \
     iniciar.h \
     mainwindow.h \
-    mision.h
+    mision.h \
+    terreno.h
 
 FORMS += \
     mainwindow.ui
@@ -31,3 +33,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Recursos.qrc
+
+DISTFILES +=

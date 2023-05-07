@@ -1,5 +1,6 @@
 
 #include "iniciar.h"
+#include "mision.h"
 
 Iniciar::Iniciar( QMainWindow* mainwindow): mainwindow(mainwindow)
 {
@@ -89,8 +90,12 @@ void Iniciar::Verificar_Estado()
             mainwindow->setCentralWidget(Selector);
 
             connect(Janukra, &QPushButton::clicked, mainwindow, [=]() {
-                mainwindow->setCentralWidget(new Mision(0, mainwindow))});
+                Janukra_Quest=new Mision(1,mainwindow);
+
+            });
         }
+
+
         }
     }
 }
