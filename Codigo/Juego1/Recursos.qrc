@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Eilaar_static.png</file>
+        <file>Filnar completo 1.png</file>
+    </qresource>
+</RCC>
