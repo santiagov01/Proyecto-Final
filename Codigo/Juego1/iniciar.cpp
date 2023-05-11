@@ -2,7 +2,7 @@
 #include "iniciar.h"
 #include "mision.h"
 
-Iniciar::Iniciar( QMainWindow* mainwindow): mainwindow(mainwindow)
+Iniciar::Iniciar(QMainWindow* mainwindow): mainwindow(mainwindow)
 {
     Pantalla_Inicio= new QWidget();
 
@@ -31,6 +31,7 @@ Iniciar::Iniciar( QMainWindow* mainwindow): mainwindow(mainwindow)
         Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Senifini.mp4");
         Reproducir();
         Continente=0;
+
 
     });
     connect(Boton_Filnar, &QPushButton::clicked, Pantalla_Inicio, [=]() {
@@ -87,18 +88,29 @@ void Iniciar::Verificar_Estado()
             Janukra->setGeometry(780,305, 100, 50);
             QPushButton *Tehamu = new QPushButton("Tehamu", Selector);
             Tehamu->setGeometry(1070,305, 100, 50);
+            QPushButton *Boton_Atras= new QPushButton("Atras",Selector);
+            Boton_Atras->setGeometry(20,20,100,50);
+
+
             mainwindow->setCentralWidget(Selector);
+
+
 
             connect(Janukra, &QPushButton::clicked, mainwindow, [=]() {
                 Janukra_Quest=new Mision(1,mainwindow);
 
             });
+            connect(Boton_Atras,&QPushButton::clicked,this,[=](){
+                mainwindow->setCentralWidget(Pantalla_Inicio);
+            });
         }
+        }
+
 
 
         }
     }
-}
+
 
 
 

@@ -13,6 +13,7 @@
 
 
 
+
 class Iniciar : public QObject
 {
     Q_OBJECT
@@ -30,10 +31,12 @@ private:
     QPixmap *Eilaar_static, *Filnar_mision;
     QPushButton *Boton_Filnar, *Boton_Abadtrah, *Boton_Senifini,*Boton_Bragelante, *Boton_Rikcelare, *Boton_Montino;
     QPushButton *Tehamu, *Janukra;
+    QPushButton *Boton_Atras;
     QMediaPlayer *player;
     QVideoWidget  *Cinematica;
     QMainWindow* mainwindow;
     Mision *Janukra_Quest;
+
 private slots:
     void Verificar_Estado();
 

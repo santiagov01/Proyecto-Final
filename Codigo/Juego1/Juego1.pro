@@ -15,12 +15,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mision.cpp \
+    personaje.cpp \
     terreno.cpp
 
 HEADERS += \
     iniciar.h \
     mainwindow.h \
     mision.h \
+    personaje.h \
     terreno.h
 
 FORMS += \

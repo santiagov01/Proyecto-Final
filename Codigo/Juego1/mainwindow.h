@@ -7,6 +7,9 @@
 #include <QPixmap>
 #include <QLabel>
 #include "iniciar.h"
+#include <QKeyEvent>
+#include "personaje.h"
+
 
 
 
@@ -23,9 +26,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+
+
+
 private:
     Ui::MainWindow *ui;
     Iniciar *Continentes;
+
 
 
 };
