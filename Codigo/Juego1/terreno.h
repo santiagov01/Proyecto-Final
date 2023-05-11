@@ -8,7 +8,7 @@
 #include <QString>
 #include "personaje.h"
 #include <QObject>
-
+#include "camara.h"
 class Terreno : public QObject
 {
     Q_OBJECT
@@ -17,6 +17,7 @@ public:
     ~Terreno();
     void Crear_fondo(QString path);
     void Mostrar_Terreno();
+    void actualizar_vista();
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
 
@@ -24,7 +25,6 @@ private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
-
     Personaje *personaje;
 
 };

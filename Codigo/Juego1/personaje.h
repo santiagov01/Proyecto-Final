@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QObject>
+#include <QCamera>
 class Personaje : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -21,11 +22,12 @@ public:
 private:
     int posX, posY, radio;
     QPixmap *pixmap;
+signals:
+    void posicionCambiada();
 
 };
 
 #endif // PERSONAJE_H
-
 
 
 

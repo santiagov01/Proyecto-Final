@@ -1,27 +1,26 @@
-
 #include "personaje.h"
-#include <QPixmap>
-#include <QPainter>
 
-    Personaje::Personaje()
+Personaje::Personaje()
 {
     posX = 0;
     posY = 0;
 
     pixmap = new QPixmap(":/Pj.png");
 }
+
 Personaje::~Personaje()
 {
     delete pixmap;
 }
-
 
 void Personaje::mover(int x, int y)
 {
     posX += x;
     posY += y;
     setPos(posX, posY);
+    emit posicionCambiada();
 }
+
 QRectF Personaje::boundingRect() const
 {
     return QRectF(posX, posY, pixmap->width(), pixmap->height());
@@ -42,7 +41,7 @@ QPixmap *Personaje::getPixmap() const
 
 void Personaje::keyPressEvent(QKeyEvent *event)
 {
-    int speed = 10; // velocidad de movimiento del personaje
+    int speed = 5; // velocidad de movimiento del personaje
 
     if (event->key() == Qt::Key_A){
         mover(-speed, 0);
