@@ -19,8 +19,13 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     QPixmap *getPixmap() const;
 
+    bool getColisionObstaculos() const;
+
+    void setColisionObstaculos(bool newColisionObstaculos);
+
 private:
     int posX, posY, radio;
+    bool colisionObstaculos;
     QPixmap *pixmap;
 signals:
     void posicionCambiada();

@@ -9,7 +9,7 @@
 #include "iniciar.h"
 #include <QKeyEvent>
 #include "personaje.h"
-
+#include "mision.h"
 
 
 
@@ -33,6 +33,8 @@ public:
 private:
     Ui::MainWindow *ui;
     Iniciar *Continentes;
+
+    Mision *Mision1;
 
 
 

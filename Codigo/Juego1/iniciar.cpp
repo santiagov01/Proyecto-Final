@@ -28,26 +28,25 @@ Iniciar::Iniciar(QMainWindow* mainwindow): mainwindow(mainwindow)
 
 
     connect(Boton_Senifini, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Senifini.mp4");
+        Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Senifini.mp4");
         Reproducir();
         Continente=0;
 
-
     });
     connect(Boton_Filnar, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Filnar.mp4");
+        Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Filnar.mp4");
         Reproducir();
         Continente=1;
 
     });
     connect(Boton_Abadtrah, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Abadtrah.mp4"); Reproducir();});
+        Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Abadtrah.mp4"); Reproducir();});
     connect(Boton_Bragelante, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Bragelante.mp4"); Reproducir();});
+        Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Bragelante.mp4"); Reproducir();});
     connect(Boton_Montino, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Montino.mp4"); Reproducir();});
+        Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Montino.mp4"); Reproducir();});
     connect(Boton_Rikcelare, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        Crear_Cinematica("C:/Users/tarmi/Videos/Captures/Rikcelare.mp4"); Reproducir();});
+        Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Rikcelare.mp4"); Reproducir();});
 
 
 }

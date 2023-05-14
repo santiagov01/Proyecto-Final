@@ -8,7 +8,8 @@
 #include <QString>
 #include "personaje.h"
 #include <QObject>
-#include "camara.h"
+
+#include "obstaculos.h"
 class Terreno : public QObject
 {
     Q_OBJECT
@@ -20,12 +21,17 @@ public:
     void actualizar_vista();
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
+    bool EvaluarColision();
+    bool EvaluarColision2();
 
 private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
     Personaje *personaje;
+
+    QList<Obstaculos*> paredes;
+    QList<Obstaculos*> recompensas;
 
 };
 
