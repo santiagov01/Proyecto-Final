@@ -2,8 +2,8 @@
 
 Personaje::Personaje()
 {
-    posX = 0;
-    posY = 0;
+    posX = 10;
+    posY = 10;
 
     pixmap = new QPixmap(":/Pj.png");
 }

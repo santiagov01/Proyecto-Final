@@ -6,12 +6,14 @@ Terreno::Terreno(QGraphicsView *view)
     scene = new QGraphicsScene();
     view->setScene(scene);
 
-    Personaje *personaje = new Personaje();
+    //Personaje *personaje = new Personaje();
+    //personaje->setFlag(QGraphicsItem::ItemIsFocusable);
+    //personaje->setFocus();
+
+    this->personaje = new Personaje();
+    personaje->setPos(10,10);
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
-
-    this->personaje = personaje;
-    personaje->setPos(0,0);
 
     paredes.push_back(new Obstaculos(200,200,660,20));
 
@@ -42,6 +44,14 @@ void Terreno::Mostrar_Terreno()
     scene->clear();
     scene->addPixmap(porcion);
     scene->addItem(personaje);
+
+
+    /*personaje->setFlag(QGraphicsItem::ItemIsFocusable);
+    personaje->setFocus();
+    personaje->focusItem();*/
+    personaje->setActive(true);
+    personaje->setSelected(true);
+
     scene->addItem(paredes.back());
     paredes.push_back(new Obstaculos(-20,-20,660,20));
     scene->addItem(paredes.back());
@@ -83,8 +93,6 @@ bool Terreno::EvaluarColision2()
             return true;
         }
     }
-
-
     return false;
 }
 QGraphicsView *Terreno::getView() const

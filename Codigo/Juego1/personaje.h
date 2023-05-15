@@ -20,7 +20,6 @@ public:
     QPixmap *getPixmap() const;
 
     bool getColisionObstaculos() const;
-
     void setColisionObstaculos(bool newColisionObstaculos);
 
 private:

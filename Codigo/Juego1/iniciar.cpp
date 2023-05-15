@@ -4,6 +4,20 @@
 
 Iniciar::Iniciar(QMainWindow* mainwindow): mainwindow(mainwindow)
 {
+    showContinentes();
+
+}
+
+void Iniciar::Crear_Cinematica(QString Path)
+{
+    player = new QMediaPlayer();
+    Cinematica = new QVideoWidget();
+    player->setSource(QUrl::fromLocalFile(Path));
+    connect(player, &QMediaPlayer::mediaStatusChanged, this, &Iniciar::Verificar_Estado);
+}
+
+void Iniciar::showContinentes()
+{
     Pantalla_Inicio= new QWidget();
 
     QPixmap Eilaar_static(":/Eilaar_static.png");
@@ -48,17 +62,6 @@ Iniciar::Iniciar(QMainWindow* mainwindow): mainwindow(mainwindow)
     connect(Boton_Rikcelare, &QPushButton::clicked, Pantalla_Inicio, [=]() {
         Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Rikcelare.mp4"); Reproducir();});
 
-
-}
-
-void Iniciar::Crear_Cinematica(QString Path)
-{
-    player = new QMediaPlayer();
-    Cinematica = new QVideoWidget();
-    player->setSource(QUrl::fromLocalFile(Path));
-    connect(player, &QMediaPlayer::mediaStatusChanged, this, &Iniciar::Verificar_Estado);
-
-
 }
 
 void Iniciar::Reproducir()
@@ -72,12 +75,13 @@ void Iniciar::Reproducir()
 void Iniciar::Verificar_Estado()
 {
     if (player->mediaStatus() == QMediaPlayer::EndOfMedia)
+
     {
         Selector= new QWidget();
         switch(Continente){
         case 1:{
 
-
+            //encapsular en un nuevo objeto de la clase Escenario
             QPixmap Filnar_mision(":/Filnar completo 1.png");
             QLabel *Imagen_Filnar=new QLabel(Selector);
             Imagen_Filnar->setPixmap(Filnar_mision);
@@ -90,17 +94,16 @@ void Iniciar::Verificar_Estado()
             QPushButton *Boton_Atras= new QPushButton("Atras",Selector);
             Boton_Atras->setGeometry(20,20,100,50);
 
-
             mainwindow->setCentralWidget(Selector);
-
-
 
             connect(Janukra, &QPushButton::clicked, mainwindow, [=]() {
                 Janukra_Quest=new Mision(1,mainwindow);
 
             });
             connect(Boton_Atras,&QPushButton::clicked,this,[=](){
-                mainwindow->setCentralWidget(Pantalla_Inicio);
+
+                showContinentes();
+
             });
         }
         }

@@ -14,10 +14,8 @@ Mision::Mision(int codigo, QMainWindow *mainwindow):mainwindow(mainwindow)
         Mapa->Crear_fondo(":/FilnarFondo.png");
         Mapa->Mostrar_Terreno();
         mainwindow->setCentralWidget(view);
-
-
-
-    }
+        mainwindow->focusWidget();
+        }
     }
 }
 
