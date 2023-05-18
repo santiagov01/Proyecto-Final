@@ -7,8 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    Continentes = new Iniciar(this);
-    //Mision1 = new Mision(1, this);
+    //Continentes = new Iniciar(this);
+    //MainWindow().showFullScreen();
+    Mision1 = new Mision(1, this);
 
 
 }

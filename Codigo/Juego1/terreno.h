@@ -6,10 +6,12 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QString>
+#include "enemigos.h"
 #include "personaje.h"
 #include <QObject>
-
+#include "iostream"
 #include "obstaculos.h"
+#include "protagonista.h"
 class Terreno : public QObject
 {
     Q_OBJECT
@@ -22,16 +24,26 @@ public:
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
     bool EvaluarColision();
+
     bool EvaluarColision2();
+    void crearEnemigos();
 
 private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
     Personaje *personaje;
+    Protagonista *protagonista;
+    Enemigos *enemigotest;
 
+    QList<Enemigos*> lista_enemigos;
     QList<Obstaculos*> paredes;
     QList<Obstaculos*> recompensas;
+    int i_test;
+public slots:
+
+    void EvaluarColisionEnemigo();
+
 
 };
 

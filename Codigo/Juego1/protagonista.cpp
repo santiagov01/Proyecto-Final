@@ -1,58 +1,25 @@
-#include "personaje.h"
+#include "protagonista.h"
 
-Personaje::Personaje()
+Protagonista::Protagonista(QString path)
 {
-    posX = 10;
-    posY = 10;
-
-    //SE PUEDE INGRESAR COMO PARAMETRO UN CODIGO Y QUE SE PUEDA
-    //LEER EN LA BASE DE DATOS SI ES UN ENEMIGO, PROTAGONISTA
-    //LO DIRIGE A SU "PATH"
-
-    //AUNQUE ESTO SOLO ES QPIXMAP, SE DEBE USAR SPRITES
-
-
     //pixmap = new QPixmap(":/Pj.png");
+    pixmap = new QPixmap(path);
 }
 
-Personaje::~Personaje()
+Protagonista::~Protagonista()
 {
-    delete pixmap;
+    //delete pixmap;
 }
-/*
-void Personaje::mover(int x, int y)
+
+void Protagonista::mover(int x, int y)
 {
     posX += x;
     posY += y;
     setPos(posX, posY);
     emit posicionCambiada();
 }
-*/
-QRectF Personaje::boundingRect() const
-{
-    return QRectF(posX, posY, pixmap->width(), pixmap->height());
-}
 
-void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    painter->drawPixmap(boundingRect(), *pixmap, pixmap->rect());
-}
-
-QPixmap *Personaje::getPixmap() const
-{
-    return pixmap;
-}
-
-void Personaje::setColisionObstaculos(bool newColisionObstaculos)
-{
-    colisionObstaculos = newColisionObstaculos;
-}
-
-/*
-void Personaje::keyPressEvent(QKeyEvent *event)
+void Protagonista::keyPressEvent(QKeyEvent *event)
 {
     int speed = 5; // velocidad de movimiento del personaje
 
@@ -89,4 +56,4 @@ void Personaje::keyPressEvent(QKeyEvent *event)
             mover(0, -speed);
         }
     }
-}*/
+}

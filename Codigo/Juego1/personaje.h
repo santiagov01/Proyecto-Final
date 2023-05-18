@@ -6,29 +6,35 @@
 #include <QKeyEvent>
 #include <QObject>
 #include <QCamera>
+#include <string.h>
 class Personaje : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
     Personaje();
     ~Personaje();
-
-    void mover(int x, int y);
     QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
-    void keyPressEvent(QKeyEvent *event) override;
     QPixmap *getPixmap() const;
+    QString path;
+    //void mover(int x, int y);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+    //void keyPressEvent(QKeyEvent *event) override;
+
 
     bool getColisionObstaculos() const;
     void setColisionObstaculos(bool newColisionObstaculos);
-
-private:
-    int posX, posY, radio;
     bool colisionObstaculos;
+    int posX, posY, radio;
     QPixmap *pixmap;
+
+
+
+
+
+/*
 signals:
     void posicionCambiada();
-
+*/
 };
 
 #endif // PERSONAJE_H
