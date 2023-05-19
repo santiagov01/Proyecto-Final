@@ -8,7 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    Continentes=new Iniciar(this);
+    //Continentes=new Iniciar(this);
+    prueba=new Mision(1,this);
 
 
 }

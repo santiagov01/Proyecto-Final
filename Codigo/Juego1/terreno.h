@@ -8,7 +8,11 @@
 #include <QString>
 #include "personaje.h"
 #include <QObject>
-#include "camara.h"
+#include <QFile>
+#include "arbol.h"
+#include "auxiliares.h"
+using namespace std;
+
 class Terreno : public QObject
 {
     Q_OBJECT
@@ -18,6 +22,8 @@ public:
     void Crear_fondo(QString path);
     void Mostrar_Terreno();
     void actualizar_vista();
+    void leer_archivo(QString ruta_archivo);
+    void Cargar_Arboles(string path);
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
 
@@ -26,6 +32,9 @@ private:
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
     Personaje *personaje;
+    Arbol *arbol;
+    list<vector<int>> arboles;
+    list<Arbol* > lista_arboles;
 
 };
 

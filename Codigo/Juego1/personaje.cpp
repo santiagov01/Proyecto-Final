@@ -46,6 +46,7 @@ void Personaje::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_A){
         mover(-speed, 0);
     }
+
     else if (event->key() == Qt::Key_D)
         mover(speed, 0);
     else if (event->key() == Qt::Key_W)

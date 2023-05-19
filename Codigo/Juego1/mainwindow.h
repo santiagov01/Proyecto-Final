@@ -9,8 +9,7 @@
 #include "iniciar.h"
 #include <QKeyEvent>
 #include "personaje.h"
-
-
+#include "mision.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -33,6 +32,7 @@ public:
 private:
     Ui::MainWindow *ui;
     Iniciar *Continentes;
+    Mision *prueba;
 
 
 

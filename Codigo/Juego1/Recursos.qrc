@@ -5,5 +5,10 @@
         <file>FilnarFondo.png</file>
         <file>pj.gif</file>
         <file>Pj.png</file>
+        <file>FilnarFondo2.png</file>
+        <file>Arboles/ArbolesPrueba.csv</file>
+        <file>Arboles/Tipo1.png</file>
+        <file>Arboles/Tipo2.png</file>
+        <file>FilnarMapa1.png</file>
     </qresource>
 </RCC>

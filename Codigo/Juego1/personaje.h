@@ -20,7 +20,7 @@ public:
     QPixmap *getPixmap() const;
 
 private:
-    int posX, posY, radio;
+    int posX, posY;
     QPixmap *pixmap;
 signals:
     void posicionCambiada();

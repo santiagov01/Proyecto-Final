@@ -72,13 +72,14 @@ void Iniciar::Reproducir()
 
 void Iniciar::Verificar_Estado()
 {
+
     if (player->mediaStatus() == QMediaPlayer::EndOfMedia)
     {
         Selector= new QWidget();
         switch(Continente){
         case 1:{
 
-
+            Selector->setEnabled(true);
             QPixmap Filnar_mision(":/Filnar completo 1.png");
             QLabel *Imagen_Filnar=new QLabel(Selector);
             Imagen_Filnar->setPixmap(Filnar_mision);
@@ -91,7 +92,6 @@ void Iniciar::Verificar_Estado()
             QPushButton *Boton_Atras= new QPushButton("Atras",Selector);
             Boton_Atras->setGeometry(20,20,100,50);
 
-
             mainwindow->setCentralWidget(Selector);
 
 
@@ -100,7 +100,9 @@ void Iniciar::Verificar_Estado()
                 Janukra_Quest=new Mision(1,mainwindow);
 
             });
-            connect(Boton_Atras,&QPushButton::clicked,this,[=](){
+            connect(Boton_Atras,&QPushButton::clicked,mainwindow,[=](){
+                Selector->setVisible(false);
+                Pantalla_Inicio->setVisible(true);
                 mainwindow->setCentralWidget(Pantalla_Inicio);
             });
         }

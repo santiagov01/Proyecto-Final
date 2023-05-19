@@ -20,6 +20,7 @@ private:
     QMainWindow *mainwindow;
     Personaje *personaje;
 
+
 };
 
 #endif // MISION_H
