@@ -4,6 +4,7 @@ Protagonista::Protagonista(QString path)
 {
     //pixmap = new QPixmap(":/Pj.png");
     pixmap = new QPixmap(path);
+    cordura = 100;
 }
 
 Protagonista::~Protagonista()
@@ -56,4 +57,14 @@ void Protagonista::keyPressEvent(QKeyEvent *event)
             mover(0, -speed);
         }
     }
+}
+
+int Protagonista::getCordura() const
+{
+    return cordura;
+}
+
+void Protagonista::setCordura(int newCordura)
+{
+    cordura = newCordura;
 }

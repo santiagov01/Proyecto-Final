@@ -12,6 +12,9 @@
 #include "iostream"
 #include "obstaculos.h"
 #include "protagonista.h"
+#include <QTimer>
+#include <QAbstractScrollArea>
+#include "time.h"
 class Terreno : public QObject
 {
     Q_OBJECT
@@ -23,10 +26,10 @@ public:
     void actualizar_vista();
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
-    bool EvaluarColision();
+    void EvaluarColision();
 
     bool EvaluarColision2();
-    void crearEnemigos();
+
 
 private:
     QGraphicsView *view;
@@ -36,13 +39,18 @@ private:
     Protagonista *protagonista;
     Enemigos *enemigotest;
 
+    QTimer *timer_aparecer;
+    QTimer *timer_cordura;
     QList<Enemigos*> lista_enemigos;
     QList<Obstaculos*> paredes;
     QList<Obstaculos*> recompensas;
+
+
     int i_test;
 public slots:
-
+    void disminuir_cordura();
     void EvaluarColisionEnemigo();
+    void aparecerEnemigos();
 
 
 };

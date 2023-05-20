@@ -17,7 +17,11 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     //bool colisionObstaculos;
     //bool getColisionObstaculos() const;
+    int getCordura() const;
+    void setCordura(int newCordura);
+
 private:
+    int cordura;
     // es posible que pixmap se deje en el padre
     //QPixmap *pixmap;
     //void setColisionObstaculos(bool newColisionObstaculos);
