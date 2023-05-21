@@ -5,15 +5,16 @@
 #include <QString>
 #include <QGraphicsItem>
 #include <QPixmap>
-
+using namespace std;
 class Arbol: public QGraphicsItem
 {
 public:
-    Arbol(int Tipo, int posX, int posY);
+    Arbol(string path, int posX, int posY);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 private:
     QPixmap *imagen;
+    int Tipo;
 };
 
 #endif // ARBOL_H

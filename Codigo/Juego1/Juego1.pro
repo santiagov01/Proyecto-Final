@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mision.cpp \
+    obstaculos.cpp \
     personaje.cpp \
     terreno.cpp
 
@@ -26,6 +27,7 @@ HEADERS += \
     iniciar.h \
     mainwindow.h \
     mision.h \
+    obstaculos.h \
     personaje.h \
     terreno.h
 

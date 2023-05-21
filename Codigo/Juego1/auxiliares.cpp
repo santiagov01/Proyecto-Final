@@ -60,13 +60,6 @@ void Cargar_datos(string name_file, list<vector<int>> *lista)
             getline(inputstringstream,posX,delimitador);
             getline(inputstringstream,posY,delimitador);
 
-            cout << "ARBOL " << i << endl;
-            cout << "\tTipo " << tipo << endl;
-            cout << "\tcasillaX " << casillaX << endl;
-            cout << "\tcasillaY " << casillaY << endl;
-            cout << "\tposX " << posX << endl;
-            cout << "\tposY " << posY << endl;
-
             // Crear vector temporal y cargar datos
             vector<int> datos;
             datos.push_back(stoi(tipo));
@@ -95,3 +88,45 @@ void Cargar_datos(string name_file, list<vector<int>> *lista)
     }
 
 }
+void Cargar_imagen(string ruta_archivo,
+              map<int, string> *Imagenes)
+{
+    string linea;
+    ifstream fin;
+    string tipo,path;
+    char delimitador = ';';
+    int salto;
+    salto = saltos(ruta_archivo);
+    try{
+
+        fin.open(ruta_archivo);        //abre el archivo para lectura
+        if(!fin.is_open()){
+            throw '2';
+        }
+
+        for(int i = 1; i<=salto;i++){
+            getline(fin,linea);
+            stringstream inputstringstream(linea); //convierte linea a sstream
+            getline(inputstringstream,tipo,delimitador);
+            getline(inputstringstream,path,delimitador);
+            (*Imagenes)[i]=path;
+        }
+        fin.close();
+
+
+        }
+        catch (char c){
+            cout<<"Error # "<<c<<": ";
+
+            if(c=='2'){
+                cout<<"Error al abrir el archivo para lectura.\n";
+            }
+        }
+        catch (...){
+            cout<<"Error no definido\n";
+        }
+
+       }
+
+
+

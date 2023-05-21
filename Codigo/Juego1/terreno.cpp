@@ -42,14 +42,28 @@ void Terreno::actualizar_vista()
     view->centerOn(personaje);
 }
 
-void Terreno::Cargar_Arboles(string path)
+void Terreno::Cargar_Arboles(string path1, string path2)
 {
-    Cargar_datos(path, &arboles);
+    Cargar_datos(path1, &arboles);
+    Cargar_imagen(path2,&Imagenes_arbol);
     for (vector<int> datos : arboles) {
-        Arbol *arbol = new Arbol(datos[0], datos[1], datos[2]);
-        arbol->setZValue(2);
+        Arbol *arbol = new Arbol(Imagenes_arbol[datos[0]], datos[1], datos[2]);
+        arbol->setZValue(datos[3]+1);
         lista_arboles.push_back(arbol);
         scene->addItem(arbol);
+    }
+
+}
+
+void Terreno::Cargar_Obstaculos(string path1,string path2)
+{
+    Cargar_datos(path1, &obstaculos);
+    Cargar_imagen(path2,&Imagenes_obstaculo);
+    for (vector<int> datos : obstaculos) {
+        Obstaculos *obstaculo = new Obstaculos(Imagenes_obstaculo[datos[0]], datos[1], datos[2]);
+        obstaculo->setZValue(6);
+        lista_obstaculos.push_back(obstaculo);
+        scene->addItem(obstaculo);
     }
 
 }

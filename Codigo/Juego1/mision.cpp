@@ -13,15 +13,11 @@ Mision::Mision(int codigo, QMainWindow *mainwindow):mainwindow(mainwindow)
     switch(codigo){
     case 1:{
         Mapa->Crear_fondo(":/FilnarMapa1.png");
-        Mapa->Cargar_Arboles("ArbolesPrueba.csv");
+        Mapa->Cargar_Arboles("ArbolesPrueba2.csv","PathArboles.csv");
+        Mapa->Cargar_Obstaculos("Obstaculos.csv","PathObstaculos.csv");
         Mapa->Mostrar_Terreno();
 
         mainwindow->setCentralWidget(view);
-
-
-
-
-
 
 
     }

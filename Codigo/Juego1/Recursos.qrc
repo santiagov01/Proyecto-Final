@@ -2,13 +2,49 @@
     <qresource prefix="/">
         <file>Eilaar_static.png</file>
         <file>Filnar completo 1.png</file>
-        <file>FilnarFondo.png</file>
         <file>pj.gif</file>
         <file>Pj.png</file>
-        <file>FilnarFondo2.png</file>
-        <file>Arboles/ArbolesPrueba.csv</file>
         <file>Arboles/Tipo1.png</file>
         <file>Arboles/Tipo2.png</file>
         <file>FilnarMapa1.png</file>
+        <file>FilnarMapa2.png</file>
+        <file>Arboles/Tipo3.png</file>
+        <file>Arboles/Tipo4.png</file>
+        <file>Arboles/Tipo5.png</file>
+        <file>Arboles/Tipo6.png</file>
+        <file>Arboles/Tipo7.png</file>
+        <file>Arboles/Tipo8.png</file>
+        <file>Arboles/Tipo9.png</file>
+        <file>Obstaculos/1.png</file>
+        <file>Obstaculos/10.png</file>
+        <file>Obstaculos/11.png</file>
+        <file>Obstaculos/12.png</file>
+        <file>Obstaculos/13.png</file>
+        <file>Obstaculos/14.png</file>
+        <file>Obstaculos/15.png</file>
+        <file>Obstaculos/16.png</file>
+        <file>Obstaculos/17.png</file>
+        <file>Obstaculos/18.png</file>
+        <file>Obstaculos/19.png</file>
+        <file>Obstaculos/2.png</file>
+        <file>Obstaculos/20.png</file>
+        <file>Obstaculos/21.png</file>
+        <file>Obstaculos/22.png</file>
+        <file>Obstaculos/23.png</file>
+        <file>Obstaculos/24.png</file>
+        <file>Obstaculos/25.png</file>
+        <file>Obstaculos/26.png</file>
+        <file>Obstaculos/3.png</file>
+        <file>Obstaculos/4.png</file>
+        <file>Obstaculos/5.png</file>
+        <file>Obstaculos/6.png</file>
+        <file>Obstaculos/7.png</file>
+        <file>Obstaculos/8.png</file>
+        <file>Obstaculos/9.png</file>
+        <file>Obstaculos/Obstaculos.txt</file>
+        <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/Obstaculos.csv</file>
+        <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/PathObstaculos.csv</file>
+        <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/ArbolesPrueba2.csv</file>
+        <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/PathArboles.csv</file>
     </qresource>
 </RCC>
