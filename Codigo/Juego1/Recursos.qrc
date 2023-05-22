@@ -46,5 +46,13 @@
         <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/PathObstaculos.csv</file>
         <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/ArbolesPrueba2.csv</file>
         <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/PathArboles.csv</file>
+        <file>Sprites PJ/Idle.png</file>
+        <file>Sprites PJ/RunD.png</file>
+        <file>Sprites PJ/SpritesExcel.xlsx</file>
+        <file>Sprites PJ/Sprites.csv</file>
+        <file>Sprites PJ/RunA.png</file>
+        <file>../build-Juego1-Desktop_Qt_6_4_3_MinGW_64_bit-Debug/Sprites.csv</file>
+        <file>Sprites PJ/AttackA.png</file>
+        <file>Sprites PJ/AttackD.png</file>
     </qresource>
 </RCC>

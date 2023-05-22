@@ -5,9 +5,12 @@ Terreno::Terreno(QGraphicsView *view)
     this->view = view;
     scene = new QGraphicsScene();
     view->setScene(scene);
+    view->scale(1.5,1.5);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
-    Personaje *personaje = new Personaje();
+    Personaje *personaje = new Personaje(288,128);
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
 
@@ -35,6 +38,7 @@ void Terreno::Mostrar_Terreno()
     scene->setSceneRect(0,0,Fondo->width(),Fondo->height());
     scene->addPixmap(*Fondo);
     scene->addItem(personaje);
+
 }
 
 void Terreno::actualizar_vista()
