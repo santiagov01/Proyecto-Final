@@ -11,7 +11,7 @@
 #include "personaje.h"
 #include "mision.h"
 
-
+#include "terrenow.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -27,17 +27,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-
-
-
 private:
     Ui::MainWindow *ui;
     Iniciar *Continentes;
 
     Mision *Mision1;
 
-
+    TerrenoW *mapa;
 
 };
 

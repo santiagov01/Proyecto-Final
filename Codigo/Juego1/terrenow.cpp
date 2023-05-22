@@ -1,17 +1,24 @@
-#include "terreno.h"
+#include "Terrenow.h"
+
 #include <QGraphicsScene>
 #include "QDebug"
 #include "QScrollArea"
-#include "proyectil.h"
+//#include "proyectil.h"
+#include "qmainwindow.h"
+#include "iostream"
 
-Terreno::Terreno(QGraphicsView *view)
+TerrenoW::TerrenoW(QWidget *parent): QMainWindow(parent)
 {
-    this->view = view;
     scene = new QGraphicsScene();
+    view = new QGraphicsView();
+    Crear_fondo(":/FilnarFondo.png");
+
+
+
     view->setScene(scene);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setAttribute(Qt::WA_TransparentForMouseEvents);
+    //view->setAttribute(Qt::WA_TransparentForMouseEvents);
     srand(time(NULL));
     //Personaje *personaje = new Personaje();
     //personaje->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -26,9 +33,9 @@ Terreno::Terreno(QGraphicsView *view)
     paredes.push_back(new Obstaculos(200,200,660,20));
 
 
-    connect(personaje, &Personaje::posicionCambiada, this, &Terreno::actualizar_vista);
-    connect(personaje, &Personaje::posicionCambiada, this, &Terreno::EvaluarColision);
-    connect(personaje, &Personaje::posicionCambiada, this, &Terreno::EvaluarColision2);
+    connect(personaje, &Personaje::posicionCambiada, this, &TerrenoW::actualizar_vista);
+    connect(personaje, &Personaje::posicionCambiada, this, &TerrenoW::EvaluarColision);
+    connect(personaje, &Personaje::posicionCambiada, this, &TerrenoW::EvaluarColision2);
 */
     this->protagonista = new Protagonista(":/Pj.png",100);
     protagonista->setPos(10,10);
@@ -43,10 +50,10 @@ Terreno::Terreno(QGraphicsView *view)
     timer_aparecer = new QTimer();
     timer_cordura = new QTimer();
 
-    connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::actualizar_vista);
-    connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColision2);
-    //connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColisionEnemigo);
-    connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColision);
+    connect(protagonista, &Protagonista::posicionCambiada, this, &TerrenoW::actualizar_vista);
+    connect(protagonista, &Protagonista::posicionCambiada, this, &TerrenoW::EvaluarColision2);
+    //connect(protagonista, &Protagonista::posicionCambiada, this, &TerrenoW::EvaluarColisionEnemigo);
+    connect(protagonista, &Protagonista::posicionCambiada, this, &TerrenoW::EvaluarColision);
     connect(timer_aparecer, SIGNAL(timeout()),this, SLOT(aparecerEnemigos()));
     connect(timer_cordura, SIGNAL(timeout()),this, SLOT(disminuir_cordura()));
 
@@ -55,19 +62,23 @@ Terreno::Terreno(QGraphicsView *view)
     // connect(protagonista, SIGNAL(protagonista->posicionCambiada()), this, SLOT(EvaluarColisionEnemigo()));
     i_test =0;
 
+    Mostrar_TerrenoW();
+
+    this->setCentralWidget(view);
+    this->focusWidget();
 }
 
-Terreno::~Terreno()
+TerrenoW::~TerrenoW()
 {
 
 }
 
-void Terreno::Crear_fondo(QString path)
+void TerrenoW::Crear_fondo(QString path)
 {
     Fondo = new QPixmap(path);
 }
 
-void Terreno::Mostrar_Terreno()
+void TerrenoW::Mostrar_TerrenoW()
 {
     QRectF rect(0, 0, 1920, 1080);
     QPixmap vista(*Fondo);
@@ -114,12 +125,12 @@ void Terreno::Mostrar_Terreno()
 
 }
 
-void Terreno::actualizar_vista()
+void TerrenoW::actualizar_vista()
 {
     view->centerOn(protagonista);
     std::cout<<"POSICION y "<<protagonista->y()<<std::endl;
 }
-void Terreno::EvaluarColision()
+void TerrenoW::EvaluarColision()
 {
     QList<Obstaculos*>::Iterator it;
     QList<Enemigos*>::Iterator it2;
@@ -147,8 +158,7 @@ void Terreno::EvaluarColision()
     return;
 }
 
-//hay un problema con multiples conexiones :/
-void Terreno::EvaluarColisionEnemigo()
+void TerrenoW::EvaluarColisionEnemigo()
 {
     QList<Enemigos*>::Iterator it3;
     for(it3 = lista_enemigos.begin();it3!=lista_enemigos.end();++it3){
@@ -163,7 +173,7 @@ void Terreno::EvaluarColisionEnemigo()
     return;
 }
 
-bool Terreno::EvaluarColision2()
+bool TerrenoW::EvaluarColision2()
 {
     QList<Obstaculos*>::Iterator it2;
     for(it2 = recompensas.begin();it2!=recompensas.end();++it2){
@@ -177,9 +187,7 @@ bool Terreno::EvaluarColision2()
     return false;
 }
 
-
-
-void Terreno::disminuir_cordura()
+void TerrenoW::disminuir_cordura()
 //Modificar la cordura del personaje cada 1 minuto
 //Aumenta la probabilidad de que aparezca un enemigo
 {
@@ -190,9 +198,7 @@ void Terreno::disminuir_cordura()
 
 }
 
-void Terreno::aparecerEnemigos()
-//Spawn enemigos dependiente de la cordura del personaje
-//Faltan hacer validaciones y verificar cuándo es válida este tipo de spawn
+void TerrenoW::aparecerEnemigos()
 {
 
     int limite_inferior = 60; //ancho del enemigo para que no genere una colision inmediata :v
@@ -236,7 +242,7 @@ void Terreno::aparecerEnemigos()
 
 }
 /*
-void Terreno::mousePressEvent(QMouseEvent *event) {
+void TerrenoW::mousePressEvent(QMouseEvent *event) {
 
     double xdest = event->pos().x();
     double ydest = event->pos().y();
@@ -246,14 +252,5 @@ void Terreno::mousePressEvent(QMouseEvent *event) {
     std::cout<<"NEW bullet"<<std::endl;
     scene->addItem(proyectiles_pj.back());
 
-}*/
-QGraphicsView *Terreno::getView() const
-{
-    return view;
 }
-
-QGraphicsScene *Terreno::getScene() const
-{
-    return scene;
-}
-
+*/

@@ -25,6 +25,7 @@ public:
     void setColisionObstaculos(bool newColisionObstaculos);
     bool colisionObstaculos;
     int posX, posY, radio;
+    int vida_max;
     QPixmap *pixmap;
 
 

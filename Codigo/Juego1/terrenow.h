@@ -1,5 +1,5 @@
-#ifndef TERRENO_H
-#define TERRENO_H
+#ifndef TerrenoWW_H
+#define TerrenoWW_H
 
 #include <QPixmap>
 #include <QWidget>
@@ -9,21 +9,22 @@
 #include "enemigos.h"
 #include "personaje.h"
 #include <QObject>
-#include "iostream"
+
 #include "obstaculos.h"
 #include "protagonista.h"
 #include <QTimer>
 #include <QAbstractScrollArea>
+#include "qmainwindow.h"
 #include "time.h"
 
 #include "proyectil.h"
-class Terreno : public QObject {
+class TerrenoW : public QMainWindow {
     Q_OBJECT
 public:
-    Terreno(QGraphicsView *view);
-    ~Terreno();
+    TerrenoW(QWidget *parent = nullptr);
+    ~TerrenoW();
     void Crear_fondo(QString path);
-    void Mostrar_Terreno();
+    void Mostrar_TerrenoW();
     void actualizar_vista();
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
@@ -33,6 +34,8 @@ public:
     //void mousePressEvent(QMouseEvent *event) ;
 
 private:
+    QMainWindow *mainwindow;
+
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
@@ -55,4 +58,4 @@ public slots:
     void aparecerEnemigos();
 };
 
-#endif // TERRENO_H
+#endif // TerrenoWW_H

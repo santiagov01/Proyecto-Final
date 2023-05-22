@@ -3,9 +3,13 @@
 #include <qmath.h>
 #include "iostream"
 #include <QDebug>
-Enemigos::Enemigos(QString path, int _posx, int _posy)
+#include "auxiliares.h"
+
+
+Enemigos::Enemigos(QString path, int _posx, int _posy, Protagonista *player )
 
 {
+    pj = player;
     posX = _posx;
     posY = _posy;
     pixmap = new QPixmap(path);
@@ -34,6 +38,7 @@ void Enemigos::movimiento()
         direction = false;
     }
     */
+    /*
     double STEP_SIZE = 2;
     if(theta <=0) dir = true;
     else if(theta >=360) dir = false;
@@ -47,4 +52,27 @@ void Enemigos::movimiento()
     double dx = STEP_SIZE * qCos(qDegreesToRadians(theta));
     std::cout<<posX<<std::endl;
     setPos(x()+dx, y()+dy);
+    */
+
+
+    //Existen dos opciones para obtener la posición del jugador
+    //1. Pasar por parámetro el objeto jugador y obtener su posición
+    //2. Invocar movimiento() en terreno, así se adquiere la posición de inmediato.
+    double STEP_SIZE = 5;
+    //500 y 200 corresponden a la posicion x,y del jugador principal
+    double distancia = calcular_distancia(x(),y(), pj->x(),pj->y());
+    double angle = calc_angle(x(),y(), pj->x(),pj->y());
+    double t =rotation();
+    //std::cout<<"Rotacion "<<angle<<std::endl;
+    //t++;
+   // setRotation(-qRadiansToDegrees(angle));
+    if(distancia > 10){
+        //if(qDegreesToRadians(t)!=angle)setRotation(-qRadiansToDegrees(angle));
+
+        double dy = STEP_SIZE* sin(qDegreesToRadians(-qRadiansToDegrees(angle)));
+        double dx = STEP_SIZE * cos(qDegreesToRadians(-qRadiansToDegrees(angle)));
+        setPos(x()+dx, y()+dy);
+        //std::cout<<angle<<std::endl;
+
+    }
 }

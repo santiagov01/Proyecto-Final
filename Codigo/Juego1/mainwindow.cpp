@@ -12,6 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     Mision1 = new Mision(1, this);
 
 
+    //Segunda opción para crear de una el mapa (en proceso)
+    //Quiero crear "abrir" una nueva ventana mientras el menú está oculto.
+    //mapa = new TerrenoW(this);
+
+
 }
 
 MainWindow::~MainWindow()

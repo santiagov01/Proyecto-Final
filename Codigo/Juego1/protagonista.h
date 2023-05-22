@@ -7,27 +7,39 @@
 #include <QKeyEvent>
 #include <QObject>
 #include <QCamera>
+#include <QList>
+
 class Protagonista: public Personaje
 {
     Q_OBJECT
 public:
-    Protagonista(QString path);
+    Protagonista(QString path, int _Vida);
     ~Protagonista();
-    void mover(int x, int y);
+
+
     void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
     //bool colisionObstaculos;
     //bool getColisionObstaculos() const;
     int getCordura() const;
     void setCordura(int newCordura);
+    void mover(int x, int y);
+    bool moverIx;
+    bool moverDx;
+    bool moverUy;
+    bool moverDy;
 
 private:
     int cordura;
     // es posible que pixmap se deje en el padre
     //QPixmap *pixmap;
     //void setColisionObstaculos(bool newColisionObstaculos);
-
+public slots:
+    //void mover();
+    //void mover(int x, int y);
 signals:
     void posicionCambiada();
+
 };
 
 #endif // PROTAGONISTA_H

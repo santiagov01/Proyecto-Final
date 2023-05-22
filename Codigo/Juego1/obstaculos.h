@@ -15,5 +15,6 @@ public:
                QWidget *widget = nullptr);
     //rectangulo que delimita al objeto, posicion y dimensiones
     QRectF boundingRect() const;
+
 };
 #endif // OBSTACULOS_H
