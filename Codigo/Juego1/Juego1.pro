@@ -17,6 +17,7 @@ SOURCES += \
     iniciar.cpp \
     main.cpp \
     mainwindow.cpp \
+    menu.cpp \
     mision.cpp \
     obstaculos.cpp \
     personaje.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     enemigos.h \
     iniciar.h \
     mainwindow.h \
+    menu.h \
     mision.h \
     obstaculos.h \
     personaje.h \
@@ -36,7 +38,8 @@ HEADERS += \
     terreno.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    menu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

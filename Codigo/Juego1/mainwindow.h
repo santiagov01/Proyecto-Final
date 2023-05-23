@@ -12,9 +12,9 @@
 #include "mision.h"
 
 
-QT_BEGIN_NAMESPACE
+
 namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 
@@ -33,7 +33,8 @@ private:
     Ui::MainWindow *ui;
     Iniciar *Continentes;
     Mision *prueba;
-
+public slots:
+    void goBack();
 
 
 };
