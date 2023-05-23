@@ -4,20 +4,6 @@
 
 Iniciar::Iniciar(QMainWindow* mainwindow): mainwindow(mainwindow)
 {
-    showContinentes();
-
-}
-
-void Iniciar::Crear_Cinematica(QString Path)
-{
-    player = new QMediaPlayer();
-    Cinematica = new QVideoWidget();
-    player->setSource(QUrl::fromLocalFile(Path));
-    connect(player, &QMediaPlayer::mediaStatusChanged, this, &Iniciar::Verificar_Estado);
-}
-
-void Iniciar::showContinentes()
-{
     Pantalla_Inicio= new QWidget();
 
     QPixmap Eilaar_static(":/Eilaar_static.png");
@@ -62,6 +48,17 @@ void Iniciar::showContinentes()
     connect(Boton_Rikcelare, &QPushButton::clicked, Pantalla_Inicio, [=]() {
         Crear_Cinematica("C:/Users/Usuario/Documents/gametest/Codigo/Codigo/Eilaar Videos/Rikcelare.mp4"); Reproducir();});
 
+
+}
+
+void Iniciar::Crear_Cinematica(QString Path)
+{
+    player = new QMediaPlayer();
+    Cinematica = new QVideoWidget();
+    player->setSource(QUrl::fromLocalFile(Path));
+    connect(player, &QMediaPlayer::mediaStatusChanged, this, &Iniciar::Verificar_Estado);
+
+
 }
 
 void Iniciar::Reproducir()
@@ -74,14 +71,14 @@ void Iniciar::Reproducir()
 
 void Iniciar::Verificar_Estado()
 {
-    if (player->mediaStatus() == QMediaPlayer::EndOfMedia)
 
+    if (player->mediaStatus() == QMediaPlayer::EndOfMedia)
     {
         Selector= new QWidget();
         switch(Continente){
         case 1:{
 
-            //encapsular en un nuevo objeto de la clase Escenario
+            Selector->setEnabled(true);
             QPixmap Filnar_mision(":/Filnar completo 1.png");
             QLabel *Imagen_Filnar=new QLabel(Selector);
             Imagen_Filnar->setPixmap(Filnar_mision);
@@ -96,14 +93,16 @@ void Iniciar::Verificar_Estado()
 
             mainwindow->setCentralWidget(Selector);
 
+
+
             connect(Janukra, &QPushButton::clicked, mainwindow, [=]() {
                 Janukra_Quest=new Mision(1,mainwindow);
 
             });
-            connect(Boton_Atras,&QPushButton::clicked,this,[=](){
-
-                showContinentes();
-
+            connect(Boton_Atras,&QPushButton::clicked,mainwindow,[=](){
+                Selector->setVisible(false);
+                Pantalla_Inicio->setVisible(true);
+                mainwindow->setCentralWidget(Pantalla_Inicio);
             });
         }
         }

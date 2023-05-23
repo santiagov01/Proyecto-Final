@@ -1,20 +1,21 @@
+
 #ifndef OBSTACULOS_H
 #define OBSTACULOS_H
 
-
+#include <QString>
 #include <QGraphicsItem>
-#include <QPainter>
-class Obstaculos:public QGraphicsItem
+#include <QPixmap>
+#include <QFile>
+#include <sstream>
+using namespace std;
+class Obstaculos: public QGraphicsItem
 {
-    int posx,posy,w,h;
-
 public:
-    Obstaculos();
-    Obstaculos(int x,int y,int w, int h);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget = nullptr);
-    //rectangulo que delimita al objeto, posicion y dimensiones
+    Obstaculos(string path, int posX, int posY);
     QRectF boundingRect() const;
-
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+private:
+    QPixmap *imagen;
+    int Tipo;
 };
 #endif // OBSTACULOS_H

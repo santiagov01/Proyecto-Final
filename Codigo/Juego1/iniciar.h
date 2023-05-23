@@ -21,7 +21,6 @@ public:
     Iniciar(QMainWindow *mainwindow);
     void Crear_Cinematica(QString Path);
     void Reproducir();
-    void showContinentes();
     QWidget *getPantalla_Inicio() const;
     QPushButton *getBoton_Filnar() const;
     ~Iniciar();

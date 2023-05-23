@@ -11,8 +11,6 @@
 #include "personaje.h"
 #include "mision.h"
 
-#include "terrenow.h"
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,13 +25,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+
+
+
 private:
     Ui::MainWindow *ui;
     Iniciar *Continentes;
+    Mision *prueba;
 
-    Mision *Mision1;
 
-    TerrenoW *mapa;
 
 };
 

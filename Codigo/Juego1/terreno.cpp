@@ -1,60 +1,36 @@
 #include "terreno.h"
-#include <QGraphicsScene>
-#include "QDebug"
-#include "QScrollArea"
-#include "proyectil.h"
+#include "auxiliares.h"
+#include <QDebug>
 
 Terreno::Terreno(QGraphicsView *view)
 {
     this->view = view;
     scene = new QGraphicsScene();
     view->setScene(scene);
+    view->scale(1.5,1.5);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setAttribute(Qt::WA_TransparentForMouseEvents);
     srand(time(NULL));
-    //Personaje *personaje = new Personaje();
-    //personaje->setFlag(QGraphicsItem::ItemIsFocusable);
-    //personaje->setFocus();
 
-    /*
-    this->personaje = new Personaje();
-    personaje->setPos(10,10);
+//    Personaje *personaje = new Personaje(288,128);
+    personaje = new Protagonista("qrc:/Sprites PJ/Sprites.csv",43,37,999,100,800,800);
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
 
-    paredes.push_back(new Obstaculos(200,200,660,20));
+//    this->personaje = personaje;
+    personaje->setPos(0,0);
+  //   personaje->setZValue(6);
 
+    connect(personaje, &Protagonista::posicionCambiada, this, &Terreno::actualizar_vista);
+    connect(personaje, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColision);
 
-    connect(personaje, &Personaje::posicionCambiada, this, &Terreno::actualizar_vista);
-    connect(personaje, &Personaje::posicionCambiada, this, &Terreno::EvaluarColision);
-    connect(personaje, &Personaje::posicionCambiada, this, &Terreno::EvaluarColision2);
-*/
-    this->protagonista = new Protagonista(":/Pj.png",100);
-    protagonista->setPos(10,10);
-    protagonista->setFlag(QGraphicsItem::ItemIsFocusable);
-    protagonista->setFocus();
-//----------Añadiendo algunos elementos-----------------
-    paredes.push_back(new Obstaculos(200,200,660,20));
-
-    lista_enemigos.push_back(new Enemigos(":/Quimera.png",200,200,protagonista));
-    this->enemigotest = new Enemigos(":/Quimera.png",100,100,protagonista);
-//-----------------------------------------------------
-    timer_aparecer = new QTimer();
+    timer_spawn = new QTimer();
     timer_cordura = new QTimer();
-
-    connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::actualizar_vista);
-    connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColision2);
-    //connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColisionEnemigo);
-    connect(protagonista, &Protagonista::posicionCambiada, this, &Terreno::EvaluarColision);
-    connect(timer_aparecer, SIGNAL(timeout()),this, SLOT(aparecerEnemigos()));
+    connect(timer_spawn, SIGNAL(timeout()),this, SLOT(aparecerEnemigos()));
     connect(timer_cordura, SIGNAL(timeout()),this, SLOT(disminuir_cordura()));
 
     timer_cordura->start(1000);
-    timer_aparecer->start(3000);
-    // connect(protagonista, SIGNAL(protagonista->posicionCambiada()), this, SLOT(EvaluarColisionEnemigo()));
-    i_test =0;
-
+    timer_spawn->start(1000);
 }
 
 Terreno::~Terreno()
@@ -69,125 +45,77 @@ void Terreno::Crear_fondo(QString path)
 
 void Terreno::Mostrar_Terreno()
 {
-    QRectF rect(0, 0, 1920, 1080);
-    QPixmap vista(*Fondo);
-    QPixmap porcion = vista.copy(rect.x(), rect.y(), rect.width(), rect.height());
-    scene->clear();
-    scene->addPixmap(porcion);
-    scene->addItem(enemigotest);
-    scene->addItem(protagonista);
 
-
-
-
-    /*personaje->setFlag(QGraphicsItem::ItemIsFocusable);
-    personaje->setFocus();
-    personaje->focusItem();*/
-    //personaje->setActive(true);
-    //personaje->setSelected(true);
-
-    scene->addItem(paredes.back());
-    paredes.push_back(new Obstaculos(-20,-20,660,20));
-    scene->addItem(paredes.back());
-    paredes.push_back(new Obstaculos(-20,-20,20,430));
-    scene->addItem(paredes.back());
-    paredes.push_back(new Obstaculos(0,Fondo->height(),660,20));
-    scene->addItem(paredes.back());
-
-
-    recompensas.push_back(new Obstaculos(400,400,20,20));
-    scene->addItem(recompensas.back());
-
-    scene->addItem(lista_enemigos.back());
-    lista_enemigos.push_back(new Enemigos(":/Quimera.png",200,300,protagonista));
-    scene->addItem(lista_enemigos.back());
-
-    /*
-    for(it = superlista.begin(); it!=superlista.end();++it){
-        posx= superlista[it][1];
-        posy = superlista[it][2];
-        posz = superlista[it][3];
-        tipo = superlista[it][0];
-        path = dicionario_paths[tipo];
-        lista_obstaculos.pushback(new obstaculo(path,posx,posy))
-    }*/
+    scene->setSceneRect(0,0,Fondo->width(),Fondo->height());
+    scene->addPixmap(*Fondo);
+    scene->addItem(personaje);
 
 }
 
 void Terreno::actualizar_vista()
 {
-    view->centerOn(protagonista);
-    std::cout<<"POSICION y "<<protagonista->y()<<std::endl;
+    view->centerOn(personaje);
 }
+
+void Terreno::Cargar_Arboles(string path1, string path2)
+{
+    Cargar_datos(path1, &arboles);
+    Cargar_imagen(path2,&Imagenes_arbol);
+    for (vector<int> datos : arboles) {
+//        Arbol *arbol = new Arbol(Imagenes_arbol[datos[0]], datos[1], datos[2]);
+//        arbol->setZValue(datos[3]+1);
+//        lista_arboles.push_back(arbol);
+//        scene->addItem(arbol);
+          lista_arboles.push_back(new Arbol(Imagenes_arbol[datos[0]], datos[1], datos[2]));
+          lista_arboles.back()->setZValue(datos[3]+1);
+          scene->addItem(lista_arboles.back());
+    }
+
+}
+
+void Terreno::Cargar_Obstaculos(string path1,string path2)
+{
+    Cargar_datos(path1, &obstaculos);
+    Cargar_imagen(path2,&Imagenes_obstaculo);
+    for (vector<int> datos : obstaculos) {
+//        Obstaculos *obstaculo = new Obstaculos(Imagenes_obstaculo[datos[0]], datos[1], datos[2]);
+//        obstaculo->setZValue(6);
+//        lista_obstaculos.push_back(obstaculo);
+        lista_obstaculos.push_back(new Obstaculos(Imagenes_obstaculo[datos[0]], datos[1], datos[2]));
+        lista_obstaculos.back()->setZValue(6);
+        scene->addItem( lista_obstaculos.back());
+    }
+
+}
+
 void Terreno::EvaluarColision()
 {
     QList<Obstaculos*>::Iterator it;
-    QList<Enemigos*>::Iterator it2;
-    it2 = lista_enemigos.begin();
-    for(it = paredes.begin();it!=paredes.end();++it){
 
-        if((*it)->collidesWithItem(protagonista) ||enemigotest->collidesWithItem(protagonista) ){
-            protagonista->setColisionObstaculos(true);
-            std::cout<<"COLISION"<<i_test<<std::endl;
-            i_test++;
+    for(it = lista_obstaculos.begin();it!=lista_obstaculos.end();++it){
+
+        if((*it)->collidesWithItem(personaje)){
+            personaje->setColisionObstaculos(true);
+            std::cout<<"COLISION"<< iter<<std::endl;
+            iter++;
+
             return;
         }
     }
-    protagonista->setColisionObstaculos(false);
-    QList<Enemigos*>::Iterator it3;
-    for(it3 = lista_enemigos.begin();it3!=lista_enemigos.end();++it3){
-        if((*it3)->collidesWithItem(protagonista)){
-            protagonista->setColisionObstaculos(true);
-            std::cout<<"COLISION CON ENEMIGOS"<<std::endl;
-            //i_test++;
-            return;
-        }
-    }
-    protagonista->setColisionObstaculos(false);
-    return;
-}
-
-//hay un problema con multiples conexiones :/
-void Terreno::EvaluarColisionEnemigo()
-{
-    QList<Enemigos*>::Iterator it3;
-    for(it3 = lista_enemigos.begin();it3!=lista_enemigos.end();++it3){
-        if((*it3)->collidesWithItem(protagonista) ||enemigotest->collidesWithItem(protagonista) ){
-            protagonista->setColisionObstaculos(true);
-            std::cout<<"COLISION ENEMIGOS"<<std::endl;
-            //i_test++;
-            return;
-        }
-    }
-    protagonista->setColisionObstaculos(false);
-    return;
-}
-
-bool Terreno::EvaluarColision2()
-{
-    QList<Obstaculos*>::Iterator it2;
-    for(it2 = recompensas.begin();it2!=recompensas.end();++it2){
-        if((*it2)->collidesWithItem(protagonista)){
-            scene->removeItem(*it2);
-            recompensas.erase(it2);
-            std::cout<<"ME LO COMO"<<std::endl;
-            return true;
-        }
-    }
-    return false;
-}
+     personaje->setColisionObstaculos(false);
+//    QList<Enemigos*>::Iterator it3;
+//    for(it3 = lista_enemigos.begin();it3!=lista_enemigos.end();++it3){
+//        if((*it3)->collidesWithItem(protagonista)){
+//            protagonista->setColisionObstaculos(true);
 
 
-
-void Terreno::disminuir_cordura()
-//Modificar la cordura del personaje cada 1 minuto
-//Aumenta la probabilidad de que aparezca un enemigo
-{
-    int cordura = protagonista->getCordura();
-    if(cordura > 0){
-        protagonista->setCordura(cordura-1);
-    }
-
+//            std::cout<<"COLISION CON ENEMIGOS"<<std::endl;
+//            //i_test++;
+//            return;
+//        }
+//    }
+//    protagonista->setColisionObstaculos(false);
+//    return;
 }
 
 void Terreno::aparecerEnemigos()
@@ -197,17 +125,17 @@ void Terreno::aparecerEnemigos()
 
     int limite_inferior = 60; //ancho del enemigo para que no genere una colision inmediata :v
     int limite_superior = 100;
-    int porcentaje = 100 - protagonista->getCordura();
+    int porcentaje = 100 - personaje->getCordura();
     int dado = rand()%(101);
-    std::cout << "PROBABILIDAD: " << porcentaje << std::endl;
-    std::cout << "DADO: " << dado << std::endl;
-    std::cout <<"CORDURA: "<< protagonista->getCordura() << std::endl;
+//    std::cout << "PROBABILIDAD: " << porcentaje << std::endl;
+//    std::cout << "DADO: " << dado << std::endl;
+//    std::cout <<"CORDURA: "<< protagonista->getCordura() << std::endl;
     if(!(dado < porcentaje) || lista_enemigos.size() > 10){
         std::cout << "No aparece enemigo" << std::endl;
 
         return;
     }
-    std::cout << "Aparece enemigo "<< std::endl;
+    //std::cout << "Aparece enemigo "<< std::endl;
     int dir_posx;
     int dir_posy;
     //numeros random para poner a la izquierda o derecha
@@ -217,36 +145,42 @@ void Terreno::aparecerEnemigos()
     //posicion aleatoria cerca al enemigo (depende de limites)
     int e_posx = rand()%(limite_superior+1 - limite_inferior) + limite_inferior;
     int e_posy = rand()%(limite_superior+1 - limite_inferior) +  limite_inferior;
-    if(dir_posx==0)e_posx= -e_posx + protagonista->posX;//posicion x enemigo a la izquierda
-    else e_posx = e_posx + protagonista->posX;
-    if(dir_posy==0)e_posy = -e_posy + protagonista->posY;//posicion y enemigo a la derecha
-    else e_posy+= protagonista->posY;
-
-    lista_enemigos.push_back(new Enemigos(":/Quimera.png",e_posx,e_posy,protagonista));
-    if(e_posx > Fondo->width())e_posx = Fondo->width()+lista_enemigos.back()->pixmap->width();
-    else if(e_posx < 0)e_posx = lista_enemigos.back()->pixmap->width();
-    if(e_posy > Fondo->height())e_posy = Fondo->height()-lista_enemigos.back()->pixmap->height();
-    else if(e_posy<0)e_posy = lista_enemigos.back()->pixmap->height();
+    if(dir_posx==0)e_posx= -e_posx + personaje->x();//posicion x enemigo a la izquierda
+    else e_posx = e_posx + personaje->x();
+    if(dir_posy==0)e_posy = -e_posy + personaje->y();//posicion y enemigo a la derecha
+    else e_posy+= personaje->y();
+    //string _path,int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player
+    //lista_enemigos.push_back(new Enemigos(":/Quimera.png",e_posx,e_posy,personaje));
+    lista_enemigos.push_back(new Enemigos("Sprites_Enemigos.csv",92,90,100,e_posx,e_posy,personaje));
+//    if(e_posx > Fondo->width())e_posx = Fondo->width()-lista_enemigos.back()->pixmap->width()/2;
+//    else if(e_posx < 0)e_posx = lista_enemigos.back()->pixmap->width()/2;
+//    if(e_posy > Fondo->height())e_posy = Fondo->height()-lista_enemigos.back()->pixmap->height()/2;
+//    else if(e_posy<0)e_posy = lista_enemigos.back()->pixmap->height()/2;
     qreal x = e_posx;
     qreal y = e_posy;
     lista_enemigos.back()->setPos(x,y);
+    lista_enemigos.back()->setZValue(6);
+
+    QGraphicsRectItem* e=new QGraphicsRectItem(-30,-10,60,20);
+    scene->addItem(e);
+    e->setPos(x,y);
     std::cout<<"NEW ENEMY"<<std::endl;
 
     scene->addItem(lista_enemigos.back());
+}
+
+void Terreno::disminuir_cordura()
+//Modificar la cordura del personaje cada 1 minuto
+//Aumenta la probabilidad de que aparezca un enemigo
+{
+    int cordura = personaje->getCordura();
+    if(cordura > 0){
+        personaje->setCordura(cordura-1);
+    }
 
 }
-/*
-void Terreno::mousePressEvent(QMouseEvent *event) {
 
-    double xdest = event->pos().x();
-    double ydest = event->pos().y();
-    std::cout<<xdest<<std::endl;
-    proyectiles_pj.push_back(new Proyectil(protagonista->x(),protagonista->y(),xdest,ydest));
-    proyectiles_pj.back()->setPos(protagonista->pos());
-    std::cout<<"NEW bullet"<<std::endl;
-    scene->addItem(proyectiles_pj.back());
 
-}*/
 QGraphicsView *Terreno::getView() const
 {
     return view;
@@ -256,4 +190,7 @@ QGraphicsScene *Terreno::getScene() const
 {
     return scene;
 }
+
+
+
 

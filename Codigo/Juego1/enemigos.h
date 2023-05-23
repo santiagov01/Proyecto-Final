@@ -8,7 +8,7 @@ class Enemigos: public Personaje
 {
     Q_OBJECT
 public:
-    Enemigos(QString path, int _posx, int _posy, Protagonista *pj);
+    Enemigos(string _path,int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player);
     ~Enemigos();
 private:
     bool direction;

@@ -6,18 +6,20 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QString>
-#include "enemigos.h"
 #include "personaje.h"
 #include <QObject>
-#include "iostream"
+#include <QFile>
+#include "arbol.h"
+#include "auxiliares.h"
 #include "obstaculos.h"
 #include "protagonista.h"
 #include <QTimer>
-#include <QAbstractScrollArea>
-#include "time.h"
+#include <QList>
+#include "enemigos.h"
+using namespace std;
 
-#include "proyectil.h"
-class Terreno : public QObject {
+class Terreno : public QObject
+{
     Q_OBJECT
 public:
     Terreno(QGraphicsView *view);
@@ -25,33 +27,42 @@ public:
     void Crear_fondo(QString path);
     void Mostrar_Terreno();
     void actualizar_vista();
-    QGraphicsView *getView() const;
-    QGraphicsScene *getScene() const;
+    void leer_archivo(QString ruta_archivo);
+    void Cargar_Arboles(string path, string path2);
+    void Cargar_Obstaculos(string path1, string path2);
+
     void EvaluarColision();
 
-    bool EvaluarColision2();
-    //void mousePressEvent(QMouseEvent *event) ;
+    QGraphicsView *getView() const;
+    QGraphicsScene *getScene() const;
+
+
+
 
 private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
-    Personaje *personaje;
-    Protagonista *protagonista;
-    Enemigos *enemigotest;
+    //Personaje *personaje;
+    Protagonista* personaje;
 
-    QTimer *timer_aparecer;
-    QTimer *timer_cordura;
+    Arbol *arbol;//Se pueden eliminar
+    Obstaculos *obstaculo;
+
+    list<vector<int>> arboles,obstaculos;
+    list<Arbol* > lista_arboles;
+    QList<Obstaculos*> lista_obstaculos;
     QList<Enemigos*> lista_enemigos;
-    QList<Obstaculos*> paredes;
-    QList<Obstaculos*> recompensas;
+    map<int, string> Imagenes_arbol, Imagenes_obstaculo;
 
-    QList<Proyectil*> proyectiles_pj;
+    QTimer *timer_spawn;
+    QTimer *timer_cordura;
 
-    int i_test;
+
+    int iter;
+
 public slots:
     void disminuir_cordura();
-    void EvaluarColisionEnemigo();
     void aparecerEnemigos();
 };
 
