@@ -13,12 +13,12 @@ Terreno::Terreno(QGraphicsView *view)
     srand(time(NULL));
 
 //    Personaje *personaje = new Personaje(288,128);
-    personaje = new Protagonista("qrc:/Sprites PJ/Sprites.csv",43,37,999,100,800,800);
+    personaje = new Protagonista("Sprites.csv",43,37,999,100,800,800);
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
 
 //    this->personaje = personaje;
-    personaje->setPos(0,0);
+    personaje->setPos(800,800);
   //   personaje->setZValue(6);
 
     connect(personaje, &Protagonista::posicionCambiada, this, &Terreno::actualizar_vista);
@@ -26,11 +26,12 @@ Terreno::Terreno(QGraphicsView *view)
 
     timer_spawn = new QTimer();
     timer_cordura = new QTimer();
+
     connect(timer_spawn, SIGNAL(timeout()),this, SLOT(aparecerEnemigos()));
     connect(timer_cordura, SIGNAL(timeout()),this, SLOT(disminuir_cordura()));
 
     timer_cordura->start(1000);
-    timer_spawn->start(1000);
+    timer_spawn->start(3600);
 }
 
 Terreno::~Terreno()
@@ -151,7 +152,7 @@ void Terreno::aparecerEnemigos()
     else e_posy+= personaje->y();
     //string _path,int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player
     //lista_enemigos.push_back(new Enemigos(":/Quimera.png",e_posx,e_posy,personaje));
-    lista_enemigos.push_back(new Enemigos("Sprites_Enemigos.csv",92,90,100,e_posx,e_posy,personaje));
+    lista_enemigos.push_back(new Enemigos("Sprites.csv",43,37,100,e_posx,e_posy,personaje));
 //    if(e_posx > Fondo->width())e_posx = Fondo->width()-lista_enemigos.back()->pixmap->width()/2;
 //    else if(e_posx < 0)e_posx = lista_enemigos.back()->pixmap->width()/2;
 //    if(e_posy > Fondo->height())e_posy = Fondo->height()-lista_enemigos.back()->pixmap->height()/2;
@@ -159,7 +160,7 @@ void Terreno::aparecerEnemigos()
     qreal x = e_posx;
     qreal y = e_posy;
     lista_enemigos.back()->setPos(x,y);
-    lista_enemigos.back()->setZValue(6);
+
 
     QGraphicsRectItem* e=new QGraphicsRectItem(-30,-10,60,20);
     scene->addItem(e);

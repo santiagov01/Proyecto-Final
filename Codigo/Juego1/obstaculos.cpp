@@ -12,7 +12,7 @@ Obstaculos::Obstaculos(string path, int posX, int posY)
 
 QRectF Obstaculos::boundingRect() const
 {
-    return QRectF(-10, -10,imagen->size().width(),imagen->size().height());
+    return QRectF(-10, -10,imagen->width(),imagen->height());
 }
 
 void Obstaculos::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -22,5 +22,5 @@ void Obstaculos::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->setBrush(Qt::gray);
     painter->setPen(Qt::NoPen);
     painter->drawRect(boundingRect());
-    //painter->drawPixmap(-(imagen->size().width())/2, -(imagen->size().height())/2, imagen->size().width(),imagen->size().height(), *imagen);
+//    painter->drawPixmap(-10, -10 , imagen->width(),imagen->height(), *imagen);
 }

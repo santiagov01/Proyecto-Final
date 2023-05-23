@@ -16,10 +16,12 @@ Enemigos::Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int 
 //    pixmap = new QPixmap(path);
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(movimiento()));
-    timer->start(33);
+    timer->start(100);
     direction = true;
     theta = 0;
     dir = true;
+
+    posini = _posx;
 }
 
 Enemigos::~Enemigos()
@@ -30,15 +32,21 @@ Enemigos::~Enemigos()
 void Enemigos::movimiento()
 {
 
-        /*
+    /*
     qreal newposx = x()+10;
-    if(x()>0 && direction){
+
+    if(x()>=posini && direction){
         setPos(x()+10,y());
-    }else if(x()>500){
+        estado = 1;
+        this->sprite();
+    }else if(x()>posini+100){
         setPos(x()-10,y());
+        estado = 2;
+        this->sprite();
         direction = false;
     }
     */
+
     /*
     double STEP_SIZE = 2;
     if(theta <=0) dir = true;
@@ -59,6 +67,8 @@ void Enemigos::movimiento()
     //Existen dos opciones para obtener la posición del jugador
     //1. Pasar por parámetro el objeto jugador y obtener su posición
     //2. Invocar movimiento() en terreno, así se adquiere la posición de inmediato.
+
+
     double STEP_SIZE = 5;
     //500 y 200 corresponden a la posicion x,y del jugador principal
     double distancia = calcular_distancia(x(),y(), pj->x(),pj->y());
@@ -67,7 +77,7 @@ void Enemigos::movimiento()
     //std::cout<<"Rotacion "<<angle<<std::endl;
     //t++;
    // setRotation(-qRadiansToDegrees(angle));
-    if(distancia > pixmap->width()+pj->pixmap->width()+20){
+    if(distancia > 30){
         //if(qDegreesToRadians(t)!=angle)setRotation(-qRadiansToDegrees(angle));
 
         double dy = STEP_SIZE* sin(qDegreesToRadians(-qRadiansToDegrees(angle)));
@@ -85,4 +95,5 @@ void Enemigos::movimiento()
         //std::cout<<angle<<std::endl;
 
     }
+
 }

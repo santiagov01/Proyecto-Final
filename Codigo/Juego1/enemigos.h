@@ -16,6 +16,8 @@ private:
     double theta;
     bool dir;
 
+    qreal posini;
+
     Protagonista *pj;
 public slots:
     void movimiento();
