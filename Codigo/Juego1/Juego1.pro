@@ -13,26 +13,38 @@ CONFIG += c++17
 SOURCES += \
     arbol.cpp \
     auxiliares.cpp \
+    enemigos.cpp \
     iniciar.cpp \
     main.cpp \
     mainwindow.cpp \
+    menu.cpp \
     mision.cpp \
     obstaculos.cpp \
     personaje.cpp \
+    protagonista.cpp \
+    proyectil.cpp \
+    selectcont.cpp \
     terreno.cpp
 
 HEADERS += \
     arbol.h \
     auxiliares.h \
+    enemigos.h \
     iniciar.h \
     mainwindow.h \
+    menu.h \
     mision.h \
     obstaculos.h \
     personaje.h \
+    protagonista.h \
+    proyectil.h \
+    selectcont.h \
     terreno.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    menu.ui \
+    selectcont.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

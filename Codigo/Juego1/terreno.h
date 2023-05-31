@@ -12,6 +12,10 @@
 #include "arbol.h"
 #include "auxiliares.h"
 #include "obstaculos.h"
+#include "protagonista.h"
+#include <QTimer>
+#include <QList>
+#include "enemigos.h"
 using namespace std;
 
 class Terreno : public QObject
@@ -26,24 +30,40 @@ public:
     void leer_archivo(QString ruta_archivo);
     void Cargar_Arboles(string path, string path2);
     void Cargar_Obstaculos(string path1, string path2);
+
+    void EvaluarColision();
+
     QGraphicsView *getView() const;
     QGraphicsScene *getScene() const;
+
+
+
 
 private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPixmap *Fondo,porcion;
-    Personaje *personaje;
+    //Personaje *personaje;
+    Protagonista* personaje;
 
-    Arbol *arbol;
+    Arbol *arbol;//Se pueden eliminar
     Obstaculos *obstaculo;
 
     list<vector<int>> arboles,obstaculos;
     list<Arbol* > lista_arboles;
-    list<Obstaculos*> lista_obstaculos;
-
+    QList<Obstaculos*> lista_obstaculos;
+    QList<Enemigos*> lista_enemigos;
     map<int, string> Imagenes_arbol, Imagenes_obstaculo;
 
+    QTimer *timer_spawn;
+    QTimer *timer_cordura;
+
+
+    int iter;
+
+public slots:
+    void disminuir_cordura();
+    void aparecerEnemigos();
 };
 
 #endif // TERRENO_H
