@@ -153,7 +153,7 @@ void Terreno::aparecerEnemigos()
     else e_posy+= personaje->y();
     //string _path,int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player
     //lista_enemigos.push_back(new Enemigos(":/Quimera.png",e_posx,e_posy,personaje));
-    lista_enemigos.push_back(new Enemigos("Sprites.csv",43,37,100,e_posx,e_posy,personaje));
+    lista_enemigos.push_back(new Enemigos("Sprites.csv",43,37,100,e_posx,e_posy,personaje,10));
 //    if(e_posx > Fondo->width())e_posx = Fondo->width()-lista_enemigos.back()->pixmap->width()/2;
 //    else if(e_posx < 0)e_posx = lista_enemigos.back()->pixmap->width()/2;
 //    if(e_posy > Fondo->height())e_posy = Fondo->height()-lista_enemigos.back()->pixmap->height()/2;

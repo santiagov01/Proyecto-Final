@@ -7,7 +7,7 @@
 #include "auxiliares.h"
 
 
-Enemigos::Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player):Personaje(_path, Ancho, Alto,_vida)
+Enemigos::Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player,int _daño):Personaje(_path, Ancho, Alto,_vida)
 
 {
     pj = player;
@@ -23,6 +23,7 @@ Enemigos::Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int 
     vida=_vida;
 
     posini = _posx;
+    daño=_daño;
 }
 
 Enemigos::~Enemigos()
@@ -38,6 +39,11 @@ int Enemigos::getVida() const
 void Enemigos::setVida(int newVida)
 {
     vida = newVida;
+}
+
+int Enemigos::getDaño() const
+{
+    return daño;
 }
 
 void Enemigos::movimiento()

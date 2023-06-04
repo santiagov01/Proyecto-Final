@@ -5,7 +5,11 @@ Personaje::Personaje(string _path,int Ancho, int Alto,int _vida)
 
     posX = 800;
     posY = 800;
-    vida_max = _vida;
+
+    vida_maxm = _vida;
+    vida_actual=_vida;
+    barraVidaItem = new QGraphicsRectItem();
+
     columnas=0;
     estado=1;
     orientacion=0;
@@ -55,6 +59,8 @@ void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(widget);
 
     painter->drawPixmap(-ancho/2,-alto/2, *pixmap,columnas,0,ancho,alto);
+
+
 }
 
 void Personaje::setColisionObstaculos(bool newColisionObstaculos)
@@ -62,57 +68,37 @@ void Personaje::setColisionObstaculos(bool newColisionObstaculos)
     colisionObstaculos = newColisionObstaculos;
 }
 
+void Personaje::BarraVida(QGraphicsScene *scene) {
+    // Crea un objeto QGraphicsRectItem para la barra de vida
+    float ancho = ((float)vida_actual / (float)vida_maxm) * 100.0;
+    // Configura la posición y dimensiones de la barra de vida
+    barraVidaItem->setRect(-ancho/4, 0, ancho, 5); // Ajusta el ancho del rectángulo
+
+    // Configura el color de la barra de vida
+    QBrush brush(Qt::red);
+    barraVidaItem->setBrush(brush);
+
+    // Establece la propiedad zValue a un valor alto para que la barra de vida se dibuje por encima del personaje
+    barraVidaItem->setZValue(10);
+    barraVidaItem->setEnabled(false);
+
+    // Agrega la barra de vida a la escena
+    scene->addItem(barraVidaItem);
+}
+
+void Personaje::actualizarPosicionBarraVida() {
+    // Actualiza la posición de la barra de vida en función de la posición actual del personaje
+    barraVidaItem->setPos(posX - ancho/4, posY - alto - 10);
+}
 
 
+void Personaje::actualizarBarraVida(int daño) {
+    // Calcula el ancho de la barra de vida en función de la vida actual
+    vida_actual=vida_actual-daño;
+    float ancho = ((float)vida_actual / (float)vida_maxm) * 100.0;
 
-//void Personaje::keyPressEvent(QKeyEvent *event)
-//{
-//    int speed = 5; // velocidad de movimiento del personaje
-
-//    if (event->key() == Qt::Key_A){
-//        mover(-speed, 0);
-//        estado=3;
-//        sprite();
-//        orientacion=0;
-
-//    }
-
-//    else if (event->key() == Qt::Key_D){
-//        mover(speed, 0);
-//        estado=2;
-//        sprite();
-//        orientacion=1;
-
-//    }
-//    else if (event->key() == Qt::Key_W)
-//        mover(0, -speed);
-//    else if (event->key() == Qt::Key_S)
-//        mover(0, speed);
-//}
-
-//void Personaje::keyReleaseEvent(QKeyEvent *event)
-//{
-//    if (event->key() == Qt::Key_A || event->key() == Qt::Key_D ||
-//        event->key() == Qt::Key_W || event->key() == Qt::Key_S)
-//    {
-//        estado = 1;
-//        sprite();
-//    }
-//}
-
-//void Personaje::mousePressEvent(QGraphicsSceneMouseEvent *event)
-//{
-//    if (event->button() == Qt::LeftButton)
-//    {
-//        if(orientacion==1){
-//            estado = 4;
-//            sprite();
-//        }
-//        else{
-//            estado=5;
-//            sprite();
-//        }
-
-//    }
-//}
+    // Actualiza el rectángulo de la barra de vida con el nuevo ancho
+    barraVidaItem->setRect(-ancho/4, 0, ancho, 5);
+    update();
+}
 

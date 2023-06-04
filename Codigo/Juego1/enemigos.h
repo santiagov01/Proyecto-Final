@@ -8,17 +8,20 @@ class Enemigos: public Personaje
 {
     Q_OBJECT
 public:
-    Enemigos(string _path,int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player);
+    Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player, int _daño);
     ~Enemigos();
     int getVida() const;
     void setVida(int newVida);
 
-private:
+    int getDaño() const;
+
+        private:
     bool direction;
     double angle;
     double theta;
     bool dir;
     int vida;
+    int daño;
     qreal posini;
 
     Protagonista *pj;

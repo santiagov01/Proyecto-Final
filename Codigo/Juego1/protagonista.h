@@ -17,6 +17,9 @@ public:
     Protagonista(string _path, int Ancho, int Alto, int _vida, int cordura, int _x, int _y);
     ~Protagonista();
 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+
+
 
 //    void keyPressEvent(QKeyEvent *event) override;
 //    void keyReleaseEvent(QKeyEvent *event) override;
@@ -38,6 +41,7 @@ public:
 
 private:
     int cordura;
+
     // es posible que pixmap se deje en el padre
     //QPixmap *pixmap;
     //void setColisionObstaculos(bool newColisionObstaculos);

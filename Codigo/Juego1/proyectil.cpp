@@ -18,7 +18,7 @@ Proyectil::Proyectil(double _px, double _py, double _xdest, double _ydest)
     angle = calc_angle(posx,posy, x_destin,y_destin);//angulo entre origen y destino, se calcula una vez
     QTimer * move_timer = new QTimer();
     connect(move_timer,SIGNAL(timeout()),this,SLOT(movimiento()));
-    move_timer->start(4);
+    move_timer->start(20);
 }
 void Proyectil::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 

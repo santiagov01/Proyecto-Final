@@ -40,10 +40,13 @@ MainWindow::MainWindow(QWidget *parent)
     view->setRenderHint(QPainter::Antialiasing);
     scene->clearFocus();
 
-    personaje = new Protagonista("Sprites.csv",45,45,999,100,800,800);
+    personaje = new Protagonista("Sprites.csv",45,40,200,100,800,800);
     personaje->setZValue(1);
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
+    personaje->BarraVida(scene);
+
+
 
     Mostrar_Terreno();
     personaje->setPos(800,800);
@@ -55,13 +58,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     timer_spawn = new QTimer();
     timer_cordura = new QTimer();
+    timer_impacto_proyectil= new QTimer();
+    timer_impacto_personaje=new QTimer();
 
     connect(timer_spawn, SIGNAL(timeout()),this, SLOT(aparecerEnemigos()));
     connect(timer_cordura, SIGNAL(timeout()),this, SLOT(disminuir_cordura()));
+    connect(timer_impacto_proyectil, SIGNAL(timeout()),this, SLOT(impacto_proyectil()));
+    connect(timer_impacto_personaje,SIGNAL(timeout()),this,SLOT(impacto_personaje()));
 
     timer_cordura->start(1000);
     timer_spawn->start(3600);
-
+    timer_impacto_proyectil->start(1);
+    timer_impacto_personaje->start(1000);
 
     //-----------------------------------------------------------------------------
 
@@ -187,7 +195,7 @@ void MainWindow::aparecerEnemigos()
     else e_posy+= personaje->y();
     //string _path,int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player
     //lista_enemigos.push_back(new Enemigos(":/Quimera.png",e_posx,e_posy,personaje));
-    lista_enemigos.push_back(new Enemigos("Sprites.csv",45,45,100,e_posx,e_posy,personaje));
+    lista_enemigos.push_back(new Enemigos("Sprites.csv",45,45,100,e_posx,e_posy,personaje,5));
 //    if(e_posx > Fondo->width())e_posx = Fondo->width()-lista_enemigos.back()->pixmap->width()/2;
 //    else if(e_posx < 0)e_posx = lista_enemigos.back()->pixmap->width()/2;
 //    if(e_posy > Fondo->height())e_posy = Fondo->height()-lista_enemigos.back()->pixmap->height()/2;
@@ -197,6 +205,52 @@ void MainWindow::aparecerEnemigos()
     lista_enemigos.back()->setPos(x,y);
 
     scene->addItem(lista_enemigos.back());
+}
+
+void MainWindow::impacto_proyectil()
+{
+
+    if(lista_proyectiles.size()!=0){
+        for (auto it = lista_proyectiles.begin(); it != lista_proyectiles.end();) { // notar que no incrementamos it
+            bool colision = false;
+            for (auto it2 = lista_enemigos.begin(); it2 != lista_enemigos.end(); ++it2) {
+                if ((*it)->collidesWithItem(*it2,Qt::IntersectsItemBoundingRect)) {
+                    colision = true;
+                    (*it2)->setVida((*it2)->getVida() - 20);
+                    if ((*it2)->getVida() <=0) {
+                        scene->removeItem(*it2);
+                        it2 = lista_enemigos.erase(it2);
+                        // eliminar enemigo de la lista y actualizar iterador
+                        break; // salir del bucle si se eliminó al enemigo
+                    }
+                    break;
+                }
+            }
+            if (colision) {
+                scene->removeItem(*it);
+                it = lista_proyectiles.erase(it);
+
+            } else {
+                ++it;
+            }
+        }
+    }
+
+}
+
+void MainWindow::impacto_personaje(){
+
+    if(lista_enemigos.size()!=0){
+        for(auto it=lista_enemigos.begin();it !=lista_enemigos.end();){
+            if((*it)->collidesWithItem(personaje,Qt::IntersectsItemBoundingRect)){
+                personaje->actualizarBarraVida((*it)->getDaño());
+                    it++;
+            }
+            else it++;
+
+
+        };
+    }
 }
 
 void MainWindow::disminuir_cordura()
@@ -213,63 +267,47 @@ void MainWindow::disminuir_cordura()
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     int speed = 10; // velocidad de movimiento del personaje
+    personaje->actualizarPosicionBarraVida();
 
     if (event->key() == Qt::Key_A){
-        personaje->mover(-speed, 0);
-        if(personaje->colisionObstaculos==false){
-            personaje->mover(-speed, 0);
-            personaje->estado=3;
-            personaje->sprite();
-            personaje->orientacion=0;
-        }else{
-            personaje->mover(speed, 0);
-            personaje->estado=2;
-            personaje->sprite();
-            personaje->orientacion=1;
+        personaje->mover(-speed,0);
+        personaje->estado=3;
+        personaje->sprite();
+        for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
+            if(personaje->collidesWithItem((*it)->getRectCol())){
+                    personaje->mover(speed, 0);
+            }
         }
-
-
     }
 
     else if (event->key() == Qt::Key_D){
         personaje->mover(speed, 0);
-        if(personaje->colisionObstaculos==false){
-            personaje->mover(speed, 0);
-            personaje->estado=2;
-            personaje->sprite();
-            personaje->orientacion=1;
-        }else{
-            personaje->mover(-speed, 0);
-            personaje->estado=3;
-            personaje->sprite();
-            personaje->orientacion=0;
+        personaje->estado=2;
+        personaje->sprite();
+        for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
+            if(personaje->collidesWithItem((*it)->getRectCol())){
+                    personaje->mover(-speed, 0);
+
+            }
         }
-
-
     }
     else if (event->key() == Qt::Key_W){
         personaje->mover(0, -speed);
-        if(personaje->colisionObstaculos==false){
-            personaje->mover(0, -speed);
-        }else{
-            personaje->mover(0, speed);
-        }
-    }
-    else if (event->key() == Qt::Key_S){
-        personaje->mover(0, speed);
-        if(personaje->colisionObstaculos==false){
-            personaje->mover(0, speed);
-        }else{
-            personaje->mover(0, -speed);
+        for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
+            if(personaje->collidesWithItem((*it)->getRectCol())){
+                    personaje->mover(0, speed);
+            }
         }
     }
 
-    else if (event->key() == Qt::Key_Q){
-        personaje->mover(-speed, speed);
-        if(personaje->colisionObstaculos==false){
-            personaje->mover(0, speed);
-        }else{
-            personaje->mover(0, -speed);
+
+    else if (event->key() == Qt::Key_S){
+        personaje->mover(0, speed);
+        for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
+            if(personaje->collidesWithItem((*it)->getRectCol())){
+                personaje->mover(0, -speed);
+
+            }
         }
     }
 
@@ -303,48 +341,6 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         lista_proyectiles.back()->setPos(personaje->x(),personaje->y());
         scene->addItem(lista_proyectiles.back());
 
-
-
-//        for (auto it = lista_proyectiles.begin(); it != lista_proyectiles.end();) { // notar que no incrementamos it
-//            bool colision = false;
-//            for (auto it2 = lista_enemigos.begin(); it2 != lista_enemigos.end(); ++it2) {
-//                if ((*it)->collidesWithItem(*it2)) {
-//                    colision = true;
-//                    (*it2)->setVida((*it2)->getVida() - 10);
-//                    if ((*it2)->getVida() <= 0) {
-//                        lista_enemigos.erase(it2); // eliminar enemigo de la lista
-//                        scene->removeItem(*it2);
-//                    }
-//                    break;
-//                }
-//            }
-//            if (colision) {
-//                it = lista_proyectiles.erase(it); // eliminar proyectil de la lista y actualizar iterador
-//            } else {
-//                ++it; // avanzar iterador
-//            }
-        }
-    for (auto it = lista_proyectiles.begin(); it != lista_proyectiles.end();) { // notar que no incrementamos it
-        bool colision = false;
-        for (auto it2 = lista_enemigos.begin(); it2 != lista_enemigos.end(); ++it2) {
-            if ((*it)->collidesWithItem(*it2,Qt::IntersectsItemBoundingRect)) {
-                colision = true;
-                (*it2)->setVida((*it2)->getVida() - 20);
-                if ((*it2)->getVida() <=0) {
-                    scene->removeItem(*it2);
-                    it2 = lista_enemigos.erase(it2);
-                   // eliminar enemigo de la lista y actualizar iterador
-                    break; // salir del bucle si se eliminó al enemigo
-                }
-                break;
-            }
-        }
-        if (colision) {
-            scene->removeItem(*it);
-            it = lista_proyectiles.erase(it);
-
-        } else {
-            ++it;
-        }
     }
 }
+

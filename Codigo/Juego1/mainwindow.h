@@ -26,6 +26,9 @@
 #include <QMouseEvent>
 #include "proyectil.h"
 
+
+#include <QDebug>
+
 //CONTINENTE
 namespace Ui { class MainWindow; }
 
@@ -72,6 +75,8 @@ private:
 
     QTimer *timer_spawn;
     QTimer *timer_cordura;
+    QTimer *timer_impacto_proyectil;
+    QTimer *timer_impacto_personaje;
 
     QList<Proyectil*> lista_proyectiles;
 
@@ -84,6 +89,8 @@ public slots:
     void goBack();
     void disminuir_cordura();
     void aparecerEnemigos();
+    void impacto_proyectil();
+    void impacto_personaje();
 
 };
 
