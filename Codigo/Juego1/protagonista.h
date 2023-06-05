@@ -17,15 +17,18 @@ public:
     Protagonista(string _path, int Ancho, int Alto, int _vida, int cordura, int _x, int _y);
     ~Protagonista();
 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+
+
 
 //    void keyPressEvent(QKeyEvent *event) override;
 //    void keyReleaseEvent(QKeyEvent *event) override;
     //bool colisionObstaculos;
     //bool getColisionObstaculos() const;
 
-    void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+//    void keyPressEvent(QKeyEvent *event) override;
+//    void keyReleaseEvent(QKeyEvent *event) override;
+    //void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
     int getCordura() const;
     void setCordura(int newCordura);
@@ -34,9 +37,11 @@ public:
     bool moverDx;
     bool moverUy;
     bool moverDy;
+    int arma;
 
 private:
     int cordura;
+
     // es posible que pixmap se deje en el padre
     //QPixmap *pixmap;
     //void setColisionObstaculos(bool newColisionObstaculos);

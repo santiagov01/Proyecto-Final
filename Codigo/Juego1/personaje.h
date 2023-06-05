@@ -12,6 +12,7 @@
 #include "auxiliares.h"
 #include <QGraphicsSceneMouseEvent>
 #include <string>
+#include <QGraphicsScene>
 using namespace std;
 class Personaje : public QObject, public QGraphicsItem
 {
@@ -33,16 +34,22 @@ public:
 
     unsigned short int posX, posY,columnas,ancho,alto;
     unsigned short int estado, orientacion;
-    int vida_max;
+
+    int vida_maxm, vida_actual;
     bool atacando;
     bool colisionObstaculos;
+
     QPixmap *pixmap;
     QTimer *AnimacionTimer;
     map<int, string> Imagenes_personaje;
 
+    QGraphicsRectItem *barraVidaItem;
+
 
     void setColisionObstaculos(bool newColisionObstaculos);
-
+    void BarraVida(QGraphicsScene *scene);
+    void actualizarPosicionBarraVida();
+    void actualizarBarraVida(int daño);
 
 public slots:
      void actualizar_sprite();

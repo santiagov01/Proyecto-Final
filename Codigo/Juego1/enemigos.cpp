@@ -7,21 +7,38 @@
 #include "auxiliares.h"
 
 
-Enemigos::Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player):Personaje(_path, Ancho, Alto,_vida)
+Enemigos::Enemigos(string _path, int Ancho, int Alto, int _vida, int _posx, int _posy, Protagonista *player,int _tipo,int _daño):Personaje(_path, Ancho, Alto,_vida)
 
 {
     pj = player;
     posX = _posx;
     posY = _posy;
+    tipo = _tipo;
 //    pixmap = new QPixmap(path);
     QTimer *timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(movimiento()));
+    switch (tipo) {
+    case 1:
+        connect(timer,SIGNAL(timeout()),this,SLOT(movimiento_acercar()));
+        break;
+    case 2:
+        connect(timer,SIGNAL(timeout()),this,SLOT(movimiento_param()));
+        break;
+    case 3:
+        balas_enemigo = new Proyectil(this->x(),this->y());
+        connect(timer,SIGNAL(timeout()),this,SLOT(movimiento_con_proyectil()));
+        break;
+    default:
+        break;
+    }
     timer->start(100);
     direction = true;
     theta = 0;
+    angle_pr = 0;
     dir = true;
+    vida=_vida;
 
     posini = _posx;
+    daño=_daño;
 }
 
 Enemigos::~Enemigos()
@@ -29,7 +46,22 @@ Enemigos::~Enemigos()
 
 }
 
-void Enemigos::movimiento()
+int Enemigos::getVida() const
+{
+    return vida;
+}
+
+void Enemigos::setVida(int newVida)
+{
+    vida = newVida;
+}
+
+int Enemigos::getDaño() const
+{
+    return daño;
+}
+
+void Enemigos::movimiento_acercar()
 {
 
     /*
@@ -95,5 +127,82 @@ void Enemigos::movimiento()
         //std::cout<<angle<<std::endl;
 
     }
+    switch (tipo) {
+    case 1:
+
+        break;
+    case 2:
+
+        break;
+
+    case 3:
+
+        break;
+    default:
+        break;
+    }
+}
+void Enemigos::movimiento_param()
+{
+    double STEP_SIZE = 10;
+    if(theta <=0)dir = true;
+    else if(theta >=360){
+        theta = 0;
+        dir = false;
+    }
+    if(dir){
+        theta+=2;
+    }else if(!dir){
+        theta-=2;
+    }
+    theta+=2;
+    double r = STEP_SIZE*qCos(qDegreesToRadians((5)*theta));
+    double dy = (r)* qSin(qDegreesToRadians(theta));
+    double dx = (r) * qCos(qDegreesToRadians(theta));
+    setPos(x()+ dx, y()+dy);
+}
+
+void Enemigos::movimiento_con_proyectil()
+{
+     double STEP_SIZE = 10;
+//    if(theta <=0)dir = true;
+//    else if(theta >=360){
+//        theta = 0;
+//        dir = false;
+//    }
+//    if(dir){
+//        theta+=2;
+//    }else if(!dir){
+//        theta-=2;
+//    }
+//    theta+=2;
+//    //double r = STEP_SIZE*qCos(qDegreesToRadians((5)*theta));
+//    double dy = (STEP_SIZE)* qSin(qDegreesToRadians(theta));
+//    double dx = (STEP_SIZE) * qCos(qDegreesToRadians(theta));
+//    setPos(x()+ dx, y()+dy);
+
+    STEP_SIZE = 20;
+    if(angle_pr <=0)dir = true;
+    else if(angle_pr >=360){
+        angle_pr = 0;
+        dir = false;
+    }
+    if(dir){
+        angle+=20;
+    }else if(!dir){
+        angle-=20;
+    }
+    //angle+=2;
+    //double r = STEP_SIZE*qCos(qDegreesToRadians((5)*theta));
+    double dy_pr = (STEP_SIZE)* qSin(qDegreesToRadians(angle));
+    double dx_pr = (STEP_SIZE) * qCos(qDegreesToRadians(angle));
+    balas_enemigo->setPos(x()+ dx_pr, y()+dy_pr);
 
 }
+
+void Enemigos::proyectil_circular(QGraphicsScene *scene){
+    if(tipo == 3){
+        scene->addItem(balas_enemigo);
+    }
+}
+

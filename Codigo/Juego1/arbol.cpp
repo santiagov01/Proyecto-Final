@@ -1,10 +1,10 @@
 
 #include "arbol.h"
 #include <QPainter>
-Arbol::Arbol(string path, int posX, int posY)
+Arbol::Arbol(string _path, int posX, int posY)
 {
-
-    imagen=new QPixmap(QString::fromStdString(path));
+    path = QString::fromStdString(_path);
+    imagen=new QPixmap(path);
     setPos(posX,posY);
 
 

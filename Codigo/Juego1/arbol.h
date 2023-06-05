@@ -13,6 +13,7 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 private:
+    QString path;
     QPixmap *imagen;
     int Tipo;
 };

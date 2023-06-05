@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "mainwindow.h"
+#include "selectcont.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Menu; }
 QT_END_NAMESPACE
@@ -14,7 +16,8 @@ class Menu : public QMainWindow
 public:
     Menu(QWidget *parent = nullptr);
     ~Menu();
-    MainWindow *windowB;
+    //MainWindow *windowB;
+    SelectCont *windowB;
     //TestElementos* ventana3;
 
 private:

@@ -20,8 +20,11 @@ SOURCES += \
     menu.cpp \
     mision.cpp \
     obstaculos.cpp \
+    pause.cpp \
     personaje.cpp \
     protagonista.cpp \
+    proyectil.cpp \
+    selectcont.cpp \
     terreno.cpp
 
 HEADERS += \
@@ -33,13 +36,18 @@ HEADERS += \
     menu.h \
     mision.h \
     obstaculos.h \
+    pause.h \
     personaje.h \
     protagonista.h \
+    proyectil.h \
+    selectcont.h \
     terreno.h
 
 FORMS += \
     mainwindow.ui \
-    menu.ui
+    menu.ui \
+    pause.ui \
+    selectcont.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

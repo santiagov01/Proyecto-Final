@@ -47,8 +47,21 @@
         <file>Sprites PJ/SpritesExcel.xlsx</file>
         <file>Sprites PJ/Sprites.csv</file>
         <file>Sprites PJ/RunA.png</file>
-        <file>Sprites PJ/AttackA.png</file>
         <file>Sprites PJ/AttackD.png</file>
         <file>Sprites_Enemigos.csv</file>
+        <file>Sprites PJ/AttackA.png</file>
+        <file>ArbolesPrueba.csv</file>
+        <file>ArbolesPrueba2.csv</file>
+        <file>Obstaculos.csv</file>
+        <file>PathArboles.csv</file>
+        <file>PathObstaculos.csv</file>
+        <file>Sprites.csv</file>
+        <file>tipo_Enemigos.csv</file>
+        <file>Videos/Abadtrah.mp4</file>
+        <file>Videos/Bragelante.mp4</file>
+        <file>Videos/Filnar.mp4</file>
+        <file>Videos/Montino.mp4</file>
+        <file>Videos/Rickcelare.mp4</file>
+        <file>Videos/Senifini.mp4</file>
     </qresource>
 </RCC>
