@@ -30,7 +30,7 @@ void Menu::openWindowB()
   // windowB->setAttribute(Qt::WA_DeleteOnClose, true); // Establece la propiedad
     setVisible(false);
     hide();
-    windowB->show();
+    windowB->showFullScreen();
     windowB->setVisible(true);
 
 }

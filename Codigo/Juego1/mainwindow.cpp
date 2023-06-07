@@ -101,7 +101,7 @@ void MainWindow::OleadasConstruct(){
 
 
     tiempo_oleada = new QTimer(); //se inicializa al emepezar la oleada.
-    temp = 10;
+    temp = 30;
 
     inicia_oleada1 = false;
     inicia_oleada2 = false;
@@ -184,7 +184,7 @@ void MainWindow::setMision(int newMision)
 }
 void MainWindow::goBack(){
     parentWidget()->show();
-    hide();
+    close();
 }
 //void MainWindow::Crear_fondo(QString path)
 //{
@@ -256,7 +256,7 @@ void MainWindow::EvaluarColision()
      if(activa_misionoleadas->collidesWithItem(personaje) && !iniciar_mision &&mision==1){
          iniciar_mision = true;
          timer_spawn->stop();
-         QMessageBox::about(this,"Aviso", "Inicia Mision Oleadas, busca el cadaver");
+         QMessageBox::about(this,"Aviso", "Busca la sangre del cadaver, allí empezarás tu oleada. Revisa que aparezcan enemigos");
      }
      if(activador_oleada1->collidesWithItem(personaje) && !inicia_oleada1 && iniciar_mision){
         inicia_oleada1 = true;
@@ -500,7 +500,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         timer_impacto_personaje->start(1000);
         timer_recoger_recompensa->start(1);
         juego_iniciado = true;
-        QMessageBox::about(this,"Aviso", "Inicia tu mision, cuida tu c0rDUR4");
+        QMessageBox::about(this,"Aviso", "Debes buscar el lugar donde inicia tu mision, cuida tu c0rDUR4");
     }
 
     //---------
@@ -629,13 +629,17 @@ void MainWindow::iniciarOleada()
     //variar los enemigos
     temp--;
     if(temp == 0 ){
-
+        if(oleada_actual == 1){
+            QMessageBox::about(this,"Muerte", "Muy bien, busca el otro rastro del cadaver");
+        }else if(oleada_actual == 2){
+            QMessageBox::about(this,"Orgullo", "Te falta la ultima oleada, dirigite a la otra anomalía de sangre");
+        }
         tiempo_oleada->stop();
         puerta_1->hide();
         //aumentar cosas nuestro pj.
         std::cout << " Se acabo el tiempo " << std::endl;
         timer_spawn->stop();
-        temp = 10;
+        temp = 30;
         if(oleada_actual == 3){
              //aumentar cosas nuestro pj.
             mision_completada = true;

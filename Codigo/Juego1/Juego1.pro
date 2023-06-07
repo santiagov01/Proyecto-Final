@@ -13,6 +13,7 @@ CONFIG += c++17
 SOURCES += \
     auxiliares.cpp \
     botin.cpp \
+    cinematica.cpp \
     enemigos.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 HEADERS += \
     auxiliares.h \
     botin.h \
+    cinematica.h \
     enemigos.h \
     mainwindow.h \
     menu.h \
@@ -38,6 +40,7 @@ HEADERS += \
     selectcont.h
 
 FORMS += \
+    cinematica.ui \
     mainwindow.ui \
     menu.ui \
     pause.ui \
