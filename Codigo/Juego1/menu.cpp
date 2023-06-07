@@ -9,6 +9,7 @@ Menu::Menu(QWidget *parent)
     ui->setupUi(this);
 
     QPushButton *nextButton = new QPushButton("INICIAR JUEGO", this);
+    nextButton->setGeometry(500,400, 150, 100);
     connect(nextButton, &QPushButton::clicked, this, &Menu::openWindowB);
     //windowB = new MainWindow(this);
     windowB = new SelectCont(this);

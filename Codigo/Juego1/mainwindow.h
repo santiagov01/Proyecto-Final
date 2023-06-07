@@ -28,6 +28,9 @@
 #include <QDebug>
 #include "botin.h"
 #include "pause.h"
+#include "qmediaplayer.h"
+
+#include <QAudioOutput>
 //CONTINENTE
 namespace Ui { class MainWindow; }
 
@@ -61,6 +64,10 @@ private:
     Ui::MainWindow *ui;
 //    Iniciar *Continentes;
 //    Mision *prueba;
+    //AUDIO--
+    QAudioOutput* audio;
+    QMediaPlayer *player_audio;
+
     //------------
     int mision; //1=> oleadas, 2=> laberinto
     bool juego_iniciado;

@@ -175,7 +175,14 @@ void MainWindow::LaberintoConstruct()
     connect(tiempo_laberinto, SIGNAL(timeout()),this, SLOT(iniciarLaberinto()));
 
 
+    //-----------AUDIO--------
+    player_audio = new QMediaPlayer(this);
+    audio = new QAudioOutput();
+    player_audio->setSource(QUrl::fromLocalFile("qrc:/soundtrack.mp3"));
+    audio->setVolume(0.5);
+    player_audio->setAudioOutput(audio);
 
+    player_audio->play();
 }
 
 void MainWindow::setMision(int newMision)
@@ -485,6 +492,11 @@ void MainWindow::disminuir_cordura()
         personaje->setCordura(cordura-1);
     }
     personaje->actualizarBarraCordura();
+    if(personaje->vida_actual<=0){
+        QMessageBox::about(this,"DEEEAD", "¿Realmente moriste?");
+        personaje->vida_actual = 100;
+
+    }
 
 }
 

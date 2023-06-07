@@ -69,5 +69,6 @@
         <file>Arboles/Tipo11.png</file>
         <file>ArbolesBosque.csv</file>
         <file>Paredes.csv</file>
+        <file>soundtrack.mp3</file>
     </qresource>
 </RCC>
