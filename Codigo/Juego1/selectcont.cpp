@@ -48,45 +48,45 @@ void SelectCont::pantalla_continentes()
     setCentralWidget(Pantalla_Inicio);
 
 
-    connect(Boton_Senifini, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        filnar = new Cinematica(this, "qrc:/Videos/Filnar.mp4",0);
-        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
-        filnar->showFullScreen();
-        hide();
+//    connect(Boton_Senifini, &QPushButton::clicked, Pantalla_Inicio, [=]() {
+//        filnar = new Cinematica(this, "qrc:/Videos/Filnar.mp4",0);
+//        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
+//        filnar->showFullScreen();
+//        hide();
 
-    });
+//    });
     connect(Boton_Filnar, &QPushButton::clicked, Pantalla_Inicio, [=]() {
         filnar = new Cinematica(this, "qrc:/Videos/Filnar.mp4",1);
         filnar->setAttribute(Qt::WA_DeleteOnClose, true);
         filnar->showFullScreen();
         hide();
     });
-    connect(Boton_Abadtrah, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        filnar = new Cinematica(this, "qrc:/Videos/Filnar.mp4",2);
-        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
-        filnar->showFullScreen();
-        hide();
-    });
-    connect(Boton_Bragelante, &QPushButton::clicked, Pantalla_Inicio, [=]() {
+//    connect(Boton_Abadtrah, &QPushButton::clicked, Pantalla_Inicio, [=]() {
+//        filnar = new Cinematica(this, "qrc:/Videos/Filnar.mp4",2);
+//        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
+//        filnar->showFullScreen();
+//        hide();
+//    });
+//    connect(Boton_Bragelante, &QPushButton::clicked, Pantalla_Inicio, [=]() {
 
-        filnar = new Cinematica(this, "qrc:/Videos/Bragelante.mp4",3);
-        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
-        filnar->showFullScreen();
-        hide();
-    });
-    connect(Boton_Montino, &QPushButton::clicked, Pantalla_Inicio, [=]() {
+//        filnar = new Cinematica(this, "qrc:/Videos/Bragelante.mp4",3);
+//        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
+//        filnar->showFullScreen();
+//        hide();
+//    });
+//    connect(Boton_Montino, &QPushButton::clicked, Pantalla_Inicio, [=]() {
 
-        filnar = new Cinematica(this, "qrc:/Videos/Montino.mp4",4);
-        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
-        filnar->showFullScreen();
-        hide();
-    });
-    connect(Boton_Rikcelare, &QPushButton::clicked, Pantalla_Inicio, [=]() {
-        filnar = new Cinematica(this, "qrc:/Videos/Montino.mp4",5);
-        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
-        filnar->showFullScreen();
-        hide();
-    });
+//        filnar = new Cinematica(this, "qrc:/Videos/Montino.mp4",4);
+//        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
+//        filnar->showFullScreen();
+//        hide();
+//    });
+//    connect(Boton_Rikcelare, &QPushButton::clicked, Pantalla_Inicio, [=]() {
+//        filnar = new Cinematica(this, "qrc:/Videos/Montino.mp4",5);
+//        filnar->setAttribute(Qt::WA_DeleteOnClose, true);
+//        filnar->showFullScreen();
+//        hide();
+//    });
 
 
 }

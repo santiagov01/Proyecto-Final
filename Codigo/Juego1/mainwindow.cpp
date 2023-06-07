@@ -111,13 +111,13 @@ void MainWindow::OleadasConstruct(){
 //    activa_misionoleadas = new QGraphicsRectItem(-30,10,60,20);
 //    activa_misionoleadas->setBrush(Qt::green);
     activa_misionoleadas = new Obstaculos(":/Obstaculos/7.png",44,64);
-    activa_misionoleadas->setPos(640,2480);
+    activa_misionoleadas->setPos(680,2280);
     activa_misionoleadas->setZValue(6);
     scene->addItem(activa_misionoleadas);
 
 //    activador_oleada1 = new QGraphicsRectItem(-30,10,60,20);
 //    activador_oleada1->setBrush(Qt::green);
-    activador_oleada1 = new Obstaculos(":/Obstaculos/7.png",44,64);
+    activador_oleada1 = new Obstaculos(":/Obstaculos/30.png",64,128);
     scene->addItem(activador_oleada1);
     activador_oleada1->setPos(1800,3000);
     activador_oleada1->setZValue(6);
@@ -125,14 +125,14 @@ void MainWindow::OleadasConstruct(){
 
 //    activador_oleada2 = new QGraphicsRectItem(-30,10,60,20);
 //    activador_oleada2->setBrush(Qt::green);
-    activador_oleada2 = new Obstaculos(":/Obstaculos/7.png",44,64);
+    activador_oleada2 = new Obstaculos(":/Obstaculos/27.png",300,200);
     scene->addItem(activador_oleada2);
     activador_oleada2->setPos(180,4060);
     activador_oleada2->setZValue(6);
 
 //    activador_oleada3 = new QGraphicsRectItem(-30,10,60,20);
 //    activador_oleada3->setBrush(Qt::green);
-    activador_oleada3 = new Obstaculos(":/Obstaculos/7.png",44,64);
+    activador_oleada3 = new Obstaculos(":/Obstaculos/28.png",96,192);
     scene->addItem(activador_oleada3);
     activador_oleada3->setPos(1700,3920);
     activador_oleada3->setZValue(6);
@@ -264,6 +264,7 @@ void MainWindow::EvaluarColision()
          iniciar_mision = true;
          timer_spawn->stop();
          QMessageBox::about(this,"Aviso", "Busca la sangre del cadaver, allí empezarás tu oleada. Revisa que aparezcan enemigos");
+         QMessageBox::about(this,"Aviso", "Presiona shift para cambiar proyectil. Muevete con WASD");
      }
      if(activador_oleada1->collidesWithItem(personaje) && !inicia_oleada1 && iniciar_mision){
         inicia_oleada1 = true;
@@ -274,8 +275,8 @@ void MainWindow::EvaluarColision()
           //no aparecen el tipo de enemigos de antes :D
 
         causa_aparicion = "oleada";
-        tiempo_oleada->start(1000);
-        timer_spawn->start(1000);
+        tiempo_oleada->start(2000);
+        timer_spawn->start(2000);
 
         oleada_actual = 1;
         tipo_enemigo = 1;
@@ -284,8 +285,8 @@ void MainWindow::EvaluarColision()
         inicia_oleada2 = true;
         puerta_1->setPos(440,3740);
         puerta_1->show();
-        tiempo_oleada->start(1000);
-        timer_spawn->start(1000);
+        tiempo_oleada->start(2000);
+        timer_spawn->start(2000);
         causa_aparicion = "oleada";
         oleada_actual = 2;
         tipo_enemigo = 2;
@@ -294,8 +295,8 @@ void MainWindow::EvaluarColision()
         inicia_oleada3 = true;
         puerta_1->setPos(940,3720);
         puerta_1->show();
-        tiempo_oleada->start(1000);
-        timer_spawn->start(1000);
+        tiempo_oleada->start(2000);
+        timer_spawn->start(2000);
         causa_aparicion = "oleada";
         oleada_actual = 3;
         tipo_enemigo = 3;

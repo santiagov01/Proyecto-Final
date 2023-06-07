@@ -9,9 +9,7 @@ Proyectil::Proyectil(double _px, double _py)
 {
     posx = _px;
     posy = _py;
-//    QTimer * move_timer = new QTimer();
-//    connect(move_timer,SIGNAL(timeout()),this,SLOT(movimiento_circular()));
-//    move_timer->start(100);
+
     angle = 0;
     dir = true;
     setPos(posx, posy);

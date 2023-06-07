@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>Eilaar_static.png</file>
         <file>Filnar completo 1.png</file>
-        <file>pj.gif</file>
         <file>Pj.png</file>
         <file>Arboles/Tipo1.png</file>
         <file>Arboles/Tipo2.png</file>
@@ -57,12 +56,7 @@
         <file>PathObstaculos.csv</file>
         <file>Sprites.csv</file>
         <file>tipo_Enemigos.csv</file>
-        <file>Videos/Abadtrah.mp4</file>
-        <file>Videos/Bragelante.mp4</file>
         <file>Videos/Filnar.mp4</file>
-        <file>Videos/Montino.mp4</file>
-        <file>Videos/Rickcelare.mp4</file>
-        <file>Videos/Senifini.mp4</file>
         <file>Pocion/Cordura.png</file>
         <file>Pocion/Salud.png</file>
         <file>Arboles/Tipo10.png</file>
@@ -70,5 +64,20 @@
         <file>ArbolesBosque.csv</file>
         <file>Paredes.csv</file>
         <file>soundtrack.mp3</file>
+        <file>Obstaculos/27.png</file>
+        <file>Obstaculos/28.png</file>
+        <file>Obstaculos/30.png</file>
+        <file>SpritesEnemies/E1RunA.png</file>
+        <file>SpritesEnemies/E1RunD.png</file>
+        <file>SpritesEnemies/E2RunA.png</file>
+        <file>SpritesEnemies/E2RunD.png</file>
+        <file>SpritesEnemies/SL_A.png</file>
+        <file>SpritesEnemies/SL_D.png</file>
+        <file>SpritesEnemies/SpriteEnemie1.csv</file>
+        <file>SpritesEnemies/SpriteEnemie2.csv</file>
+        <file>Sprites PJ/Proyectil.png</file>
+        <file>SpritesEnemies/E3RunA.png</file>
+        <file>SpritesEnemies/E3RunD.png</file>
+        <file>SpritesEnemies/SpriteEnemie3.csv</file>
     </qresource>
 </RCC>
