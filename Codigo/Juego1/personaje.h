@@ -34,21 +34,22 @@ public:
 
     unsigned short int posX, posY,columnas,ancho,alto;
     unsigned short int estado, orientacion;
+
     int vida_maxm, vida_actual, vida;
     bool atacando;
     bool colisionObstaculos;
+
     QPixmap *pixmap;
     QTimer *AnimacionTimer;
     map<int, string> Imagenes_personaje;
 
     QGraphicsRectItem *barraVidaItem;
 
-
-    void setColisionObstaculos(bool newColisionObstaculos);
     void BarraVida(QGraphicsScene *scene);
     void actualizarPosicionBarraVida();
     void actualizarBarraVida(int daño);
 
+    void setColisionObstaculos(bool newColisionObstaculos);
     void setVida_actual(int newVida_actual);
 
 public slots:

@@ -33,4 +33,3 @@ int Botin::getTipo() const
 {
     return tipo;
 }
-

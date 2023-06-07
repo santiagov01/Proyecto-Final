@@ -8,6 +8,7 @@
 #include <QFile>
 #include <sstream>
 #include <QGraphicsRectItem>
+
 #include <QGraphicsLineItem>
 using namespace std;
 class Obstaculos: public QGraphicsItem
@@ -21,12 +22,9 @@ public:
 
     QGraphicsRectItem *getRectCol() const;
 
-
-
 private:
     QPixmap *imagen;
     int Tipo;
     QGraphicsRectItem *RectCol;
-
 };
 #endif // OBSTACULOS_H

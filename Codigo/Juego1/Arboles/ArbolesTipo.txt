@@ -1,0 +1,9 @@
+1. verde/marron
+2. Amarillo/marron
+3. rojo/blanco
+4. verde/blanco
+5. pino amarillo
+6. pino verde
+7. verde grande
+8. Amarillo/blanco
+9. muerto

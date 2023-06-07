@@ -1,6 +1,7 @@
 #include <auxiliares.h>
 #include <QFile>
-
+#include <QTextStream>
+#include <QDebug>
 int saltos(string name_file){
     ifstream fin;
     int saltos = 0;
@@ -36,153 +37,161 @@ int saltos(string name_file){
 
 
 }
-void Leer_paredes(string name_file, list<vector<int>>*lista){
-
-
-    string linea;
-    ifstream fin;
-    string Inicialx, Inicialy,Finalx, Finaly;
-    char delimitador = ';';
-    int salto;
-    salto = saltos(name_file);
-    try{
-
-        fin.open(name_file);        //abre el archivo para lectura
-        if(!fin.is_open()){
-            throw '2';
-        }
-        getline(fin,linea); //ELIMINAR encabezdo
-
-        for(int i = 1; i<=salto;i++){
-            getline(fin,linea);
-            stringstream inputstringstream(linea); //convierte linea a sstream
-            getline(inputstringstream,Inicialx,delimitador);
-            getline(inputstringstream,Inicialy,delimitador);
-            getline(inputstringstream,Finalx,delimitador);
-            getline(inputstringstream,Finaly,delimitador);
-
-            vector<int> datos;
-            datos.push_back(stoi(Inicialx));
-            datos.push_back(stoi(Inicialy));
-            datos.push_back(stoi(Finalx));
-            datos.push_back(stoi(Finaly));
-
-            lista->push_back(datos);
-        }
-        fin.close();
-
-
-    }
-    catch (char c){
-        cout<<"Error # "<<c<<": ";
-
-        if(c=='2'){
-            cout<<"Error al abrir el archivo para lectura.\n";
-        }
-    }
-    catch (...){
-        cout<<"Error no definido\n";
-    }
-
-}
-
-
-
-
 void Cargar_datos(string name_file, list<vector<int>> *lista)
 {
-    string linea;
-    ifstream fin;
-    string tipo, casillaX,casillaY, posX, posY,Zvalue;
-    char delimitador = ';';
-    int salto;
-    salto = saltos(name_file);
-    try{
 
-        fin.open(name_file);        //abre el archivo para lectura
-        if(!fin.is_open()){
-            throw '2';
-        }
-        getline(fin,linea); //ELIMINAR encabezdo
-
-        for(int i = 1; i<=salto;i++){
-            getline(fin,linea);
-            stringstream inputstringstream(linea); //convierte linea a sstream
-            getline(inputstringstream,tipo,delimitador);
-            getline(inputstringstream,casillaX,delimitador);
-            getline(inputstringstream,casillaY,delimitador);
-            getline(inputstringstream,posX,delimitador);
-            getline(inputstringstream,posY,delimitador);
-            getline(inputstringstream,Zvalue,delimitador);
-
-            // Crear vector temporal y cargar datos
-            vector<int> datos;
-            datos.push_back(stoi(tipo));
-            datos.push_back(stoi(posX));
-            datos.push_back(stoi(posY));
-            datos.push_back(stoi(Zvalue));
-
-            // Agregar vector a la lista
-            lista->push_back(datos);
-
-            //En este espacio falta hacer un llamado a una función que agregue los elementos a una Qlist o map
-
-        }
-        fin.close();
-
-
+    QFile file(QString::fromStdString(name_file));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo";
+        return;
     }
-    catch (char c){
-        cout<<"Error # "<<c<<": ";
+    int tipo, posx, posy, zvalue;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split(';'); //divide de una vez en una lista
+        vector<int> datos;
+        int j = 0;
+//        tipo = parts[0].toInt();
+//        posx = parts[3].toInt();
+//        posy = parts[4].toInt();
+        for (const QString& part : parts) {
 
-        if(c=='2'){
-            cout<<"Error al abrir el archivo para lectura.\n";
+            switch (j) {
+            case 0:
+                tipo  = part.toInt();
+                break;
+            case 3:
+                posx = part.toFloat();
+                break;
+            case 4:
+                posy = part.toFloat();
+                break;
+            case 5:
+                zvalue = part.toFloat();
+                break;
+            default:
+                break;
+            }
+            j++;
         }
+        datos.push_back(tipo);
+        datos.push_back(posx);
+        datos.push_back(posy);
+        datos.push_back(zvalue);
+        lista->push_back(datos);
     }
-    catch (...){
-        cout<<"Error no definido\n";
-    }
+    file.close();
 
+}
+void Cargar_datos_enemigo(string name_file,  map<int,vector<QString>> *mapa)
+{
+    //guardará los datos de todos los enemigos en una mapa de vectores
+    //1:enemigo que persigue
+    //2:enemigo que describe trayectoria parametrica
+    //3:enemigo " " " circular con proyectiles a su alrededor
+    //4: enemigo que está en un rango
+    QFile file(QString::fromStdString(name_file));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo";
+        return;
+    }
+    //int tipo, posx, posy;
+    QTextStream in(&file);
+    int j = 1;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split(';'); //divide de una vez en una lista
+        vector<QString> datos;
+
+//        tipo = parts[0].toInt();
+//        posx = parts[3].toInt();
+//        posy = parts[4].toInt();
+        for (const QString& part : parts) {
+
+            datos.push_back(part);
+
+        }
+
+        (*mapa)[j] = datos;
+        j++;
+    }
+    file.close();
+
+}
+void Leer_paredes(string name_file, list<vector<int>>*lista){
+
+    QFile file(QString::fromStdString(name_file));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo";
+        return;
+    }
+    int Inicialx, Inicialy,Finalx, Finaly;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split(';'); //divide de una vez en una lista
+        vector<int> datos;
+        int j = 0;
+        for (const QString& part : parts) {
+
+            switch (j) {
+            case 0:
+                Inicialx  = part.toInt();
+                break;
+            case 1:
+                Inicialy = part.toInt();
+                break;
+            case 2:
+                Finalx = part.toInt();
+                break;
+            case 3:
+                Finaly = part.toInt();
+                break;
+            default:
+                break;
+            }
+            j++;
+        }
+        datos.push_back((Inicialx));
+        datos.push_back((Inicialy));
+        datos.push_back((Finalx));
+        datos.push_back((Finaly));
+
+        lista->push_back(datos);
+    }
+    file.close();
 }
 void Cargar_imagen(string ruta_archivo,
               map<int, string> *Imagenes)
 {
-    string linea;
-    ifstream fin;
-    string tipo,path;
-    char delimitador = ';';
-    int salto;
-    salto = saltos(ruta_archivo);
-    try{
+    QFile file(QString::fromStdString(ruta_archivo));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo";
+        return;
+    }
+    QTextStream in(&file);
+    int i = 0;
 
-        fin.open(ruta_archivo);        //abre el archivo para lectura
-        if(!fin.is_open()){
-            throw '2';
-        }
-
-        for(int i = 1; i<=salto;i++){
-            getline(fin,linea);
-            stringstream inputstringstream(linea); //convierte linea a sstream
-            getline(inputstringstream,tipo,delimitador);
-            getline(inputstringstream,path,delimitador);
-            (*Imagenes)[i]=path;
-        }
-        fin.close();
-
-
-        }
-        catch (char c){
-            cout<<"Error # "<<c<<": ";
-
-            if(c=='2'){
-                cout<<"Error al abrir el archivo para lectura.\n";
+    string path;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList parts = line.split(';');
+        int j = 0;
+        for (const QString& part : parts) {
+            if(j == 1){
+                //std::cout << part.toStdString() << std::endl;
+                path = part.toStdString();
             }
+            j++;
         }
-        catch (...){
-            cout<<"Error no definido\n";
-        }
+        i++;
+        //path = parts[1].toStdString();
+        (*Imagenes)[i]=path;
 
-       }
+    }
+    file.close();
+}
 
 
 double calcular_distancia(double x1, double y1, double x2 ,double y2){

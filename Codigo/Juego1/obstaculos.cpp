@@ -15,7 +15,6 @@ Obstaculos::Obstaculos(string path, int posX, int posY)
     rect = transform.mapRect(rect);
     RectCol = new QGraphicsRectItem(rect.x() + posX, rect.y() + posY, rect.width(), rect.height());
 }
-
 Obstaculos::Obstaculos(int tipo, int posX, int posY,string path)
 {
     imagen=new QPixmap(QString::fromStdString(path));
@@ -58,7 +57,6 @@ Obstaculos::Obstaculos(int Inicialx, int Inicialy, int Finalx, int Finaly)
     setPos(Inicialx,Inicialy);
     RectCol->setZValue(10);
 }
-
 QRectF Obstaculos::boundingRect() const
 {
     return QRectF(0, 0,imagen->width(),imagen->height());

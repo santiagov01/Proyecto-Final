@@ -1,0 +1,28 @@
+1.madera
+2.troncos partidos
+3.columna
+4.muro de piedra
+5. casa
+6. tronco y hacha
+7. pozo	
+8. cajas
+9. circulo de piedra
+10. piedra pequeña
+11. Tronco acostado
+12. tronco incrustado
+13. piedra grande
+14.tumba cama cruz
+15. tumba cruz
+16. tumba RIP
+17. tumba pequeña
+18. silla vacia
+19. ataud semiderruido horizontal
+20. ataud completo vertical
+21. ataud derruido vertical
+22. ataud abierto
+23. silla esqueleto
+24.Osario
+25. estatua
+26. Huesos
+
+

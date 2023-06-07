@@ -12,7 +12,7 @@ Protagonista::Protagonista(string _path,int Ancho, int Alto,int _vida,int _cordu
     this->posY = _y;
     vida_actual=_vida;
     vida_maxm=_vida;
-     barraCorduraItem=new QGraphicsRectItem();
+    barraCorduraItem=new QGraphicsRectItem();
 
 }
 
@@ -45,6 +45,17 @@ void Protagonista::setCordura(int newCordura)
     cordura = newCordura;
 }
 
+
+
+void Protagonista::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    // Dibuja el sprite del personaje
+    painter->drawPixmap(-ancho/2,-alto/2, *pixmap,columnas,0,ancho,alto);
+}
+
 void Protagonista::BarraCordura(QGraphicsScene *scene) {
     // Crea un objeto QGraphicsRectItem para la barra de vida
     // Configura la posición y dimensiones de la barra de vida
@@ -75,21 +86,8 @@ void Protagonista::actualizarBarraCordura() {
     barraCorduraItem->setRect(-cordura/4, 0, cordura, 5);
     update();
 }
-
-
-
-void Protagonista::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    // Dibuja el sprite del personaje
-    painter->drawPixmap(-ancho/2,-alto/2, *pixmap,columnas,0,ancho,alto);
-}
-
 void Protagonista::tomar_pocion(int tipo)
 {
     if(tipo==0) actualizarBarraVida(-20);
     else cordura+=20;
 }
-

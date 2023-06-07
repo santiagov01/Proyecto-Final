@@ -14,11 +14,11 @@ SOURCES += \
     auxiliares.cpp \
     botin.cpp \
     enemigos.cpp \
-    iniciar.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
     obstaculos.cpp \
+    pause.cpp \
     personaje.cpp \
     protagonista.cpp \
     proyectil.cpp \
@@ -28,10 +28,10 @@ HEADERS += \
     auxiliares.h \
     botin.h \
     enemigos.h \
-    iniciar.h \
     mainwindow.h \
     menu.h \
     obstaculos.h \
+    pause.h \
     personaje.h \
     protagonista.h \
     proyectil.h \
@@ -40,6 +40,7 @@ HEADERS += \
 FORMS += \
     mainwindow.ui \
     menu.ui \
+    pause.ui \
     selectcont.ui
 
 # Default rules for deployment.

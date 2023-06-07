@@ -2,6 +2,8 @@
     <qresource prefix="/">
         <file>Eilaar_static.png</file>
         <file>Filnar completo 1.png</file>
+        <file>pj.gif</file>
+        <file>Pj.png</file>
         <file>Arboles/Tipo1.png</file>
         <file>Arboles/Tipo2.png</file>
         <file>FilnarMapa1.png</file>
@@ -48,10 +50,24 @@
         <file>Sprites PJ/AttackD.png</file>
         <file>Sprites_Enemigos.csv</file>
         <file>Sprites PJ/AttackA.png</file>
+        <file>ArbolesPrueba.csv</file>
+        <file>ArbolesPrueba2.csv</file>
+        <file>Obstaculos.csv</file>
+        <file>PathArboles.csv</file>
+        <file>PathObstaculos.csv</file>
+        <file>Sprites.csv</file>
+        <file>tipo_Enemigos.csv</file>
+        <file>Videos/Abadtrah.mp4</file>
+        <file>Videos/Bragelante.mp4</file>
+        <file>Videos/Filnar.mp4</file>
+        <file>Videos/Montino.mp4</file>
+        <file>Videos/Rickcelare.mp4</file>
+        <file>Videos/Senifini.mp4</file>
         <file>Pocion/Cordura.png</file>
         <file>Pocion/Salud.png</file>
-        <file>Sprites PJ/Proyectil.png</file>
         <file>Arboles/Tipo10.png</file>
         <file>Arboles/Tipo11.png</file>
+        <file>ArbolesBosque.csv</file>
+        <file>Paredes.csv</file>
     </qresource>
 </RCC>

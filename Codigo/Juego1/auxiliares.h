@@ -6,7 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include <QFile>
-
+#include <QString>
 using namespace std;
 
 
@@ -18,5 +18,6 @@ void Cargar_datos(string name_file, list<vector<int>> *lista);
 void Leer_paredes(string name_file, list<vector<int>> *lista);
 int saltos(string name_file);
 void Cargar_imagen(string ruta_archivo, map<int, string> *Imagenes);
+void Cargar_datos_enemigo(string name_file,  map<int,vector<QString>> *mapa);
 
 #endif // AUXILIARES_H

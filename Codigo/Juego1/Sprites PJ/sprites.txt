@@ -1,0 +1,4 @@
+1	Idle
+2	CaminarD
+3	CaminarA
+4	Atacar
