@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent, int _mision)
     Cargar_paredes(":/Paredes.csv");
 
 
+
     setCentralWidget(view);
     view->setRenderHint(QPainter::Antialiasing);
     scene->clearFocus();
@@ -264,7 +265,7 @@ void MainWindow::EvaluarColision()
          iniciar_mision = true;
          timer_spawn->stop();
          QMessageBox::about(this,"Aviso", "Busca la sangre del cadaver, allí empezarás tu oleada. Revisa que aparezcan enemigos");
-         QMessageBox::about(this,"Aviso", "Presiona shift para cambiar proyectil. Muevete con WASD");
+
      }
      if(activador_oleada1->collidesWithItem(personaje) && !inicia_oleada1 && iniciar_mision){
         inicia_oleada1 = true;
@@ -514,6 +515,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         timer_recoger_recompensa->start(1);
         juego_iniciado = true;
         QMessageBox::about(this,"Aviso", "Debes buscar el lugar donde inicia tu mision, cuida tu c0rDUR4");
+        QMessageBox::about(this,"Aviso", "Presiona shift para cambiar proyectil. Muevete con WASD");
     }
 
     //---------
