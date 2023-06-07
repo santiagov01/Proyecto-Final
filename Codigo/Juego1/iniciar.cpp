@@ -96,7 +96,7 @@ void Iniciar::Verificar_Estado()
 
 
             connect(Janukra, &QPushButton::clicked, mainwindow, [=]() {
-                Janukra_Quest=new Mision(1,mainwindow);
+               // Janukra_Quest=new Mision(1,mainwindow);
 
             });
             connect(Boton_Atras,&QPushButton::clicked,mainwindow,[=](){

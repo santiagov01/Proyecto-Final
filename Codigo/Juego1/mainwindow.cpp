@@ -32,8 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     //---------------------------------------------------------------------
     //PASAR COMO PARAMETRO EL MAPA Y LOS CSV
     scene->setBackgroundBrush(QBrush(QImage(":/FilnarMapa1.png")));
-    Cargar_Arboles("ArbolesPrueba2.csv","PathArboles.csv");
+    Cargar_Arboles("ArbolesBosque.csv","PathArboles.csv");
     Cargar_Obstaculos("Obstaculos.csv","PathObstaculos.csv");
+    Cargar_paredes("Paredes.csv");
 
 
     setCentralWidget(view);
@@ -41,10 +42,11 @@ MainWindow::MainWindow(QWidget *parent)
     scene->clearFocus();
 
     personaje = new Protagonista("Sprites.csv",45,40,200,100,800,800);
-    personaje->setZValue(1);
+    personaje->setZValue(0);
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
     personaje->BarraVida(scene);
+    personaje->BarraCordura(scene);
 
 
 
@@ -60,16 +62,19 @@ MainWindow::MainWindow(QWidget *parent)
     timer_cordura = new QTimer();
     timer_impacto_proyectil= new QTimer();
     timer_impacto_personaje=new QTimer();
+    timer_recoger_recompensa=new QTimer();
 
     connect(timer_spawn, SIGNAL(timeout()),this, SLOT(aparecerEnemigos()));
     connect(timer_cordura, SIGNAL(timeout()),this, SLOT(disminuir_cordura()));
     connect(timer_impacto_proyectil, SIGNAL(timeout()),this, SLOT(impacto_proyectil()));
     connect(timer_impacto_personaje,SIGNAL(timeout()),this,SLOT(impacto_personaje()));
+    connect(timer_recoger_recompensa, SIGNAL(timeout()),this,SLOT(recoger_botin()));
 
     timer_cordura->start(1000);
     timer_spawn->start(3600);
     timer_impacto_proyectil->start(1);
     timer_impacto_personaje->start(1000);
+    timer_recoger_recompensa->start(1);
 
     //-----------------------------------------------------------------------------
 
@@ -91,7 +96,7 @@ void MainWindow::goBack(){
 
 void MainWindow::Mostrar_Terreno()
 {
-    scene->setSceneRect(0,0,4800,4160);
+    scene->setSceneRect(0,0,4803,4163);
     //scene->addPixmap(*Fondo);
     scene->addItem(personaje);
 }
@@ -109,12 +114,15 @@ void MainWindow::Cargar_Arboles(string path1, string path2)
 //        arbol->setZValue(datos[3]+1);
 //        lista_arboles.push_back(arbol);
 //        scene->addItem(arbol);
-          lista_arboles.push_back(new Arbol(Imagenes_arbol[datos[0]], datos[1], datos[2]));
-          lista_arboles.back()->setZValue(datos[3]+1);
-          scene->addItem(lista_arboles.back());
+          lista_obstaculos.push_back(new Obstaculos(datos[0], datos[1], datos[2],Imagenes_arbol[datos[0]]));
+          lista_obstaculos.back()->setZValue(datos[3]);
+          scene->addItem(lista_obstaculos.back());
+          //scene->addItem((lista_obstaculos.back()->getRectCol()));
     }
 
 }
+
+
 
 void MainWindow::Cargar_Obstaculos(string path1,string path2)
 {
@@ -125,10 +133,21 @@ void MainWindow::Cargar_Obstaculos(string path1,string path2)
 //        obstaculo->setZValue(6);
 //        lista_obstaculos.push_back(obstaculo);
         lista_obstaculos.push_back(new Obstaculos(Imagenes_obstaculo[datos[0]], datos[1], datos[2]));
-        lista_obstaculos.back()->setZValue(6);
+        lista_obstaculos.back()->setZValue(datos[3]);
         scene->addItem( lista_obstaculos.back());
     }
 
+}
+
+void MainWindow::Cargar_paredes(string path1)
+{
+
+    Leer_paredes(path1,&paredes);
+    for(vector<int>datos:paredes){
+
+        lista_obstaculos.push_back(new Obstaculos(datos[0],datos[1],datos[2],datos[3]));
+        scene->addItem(lista_obstaculos.back());
+    }
 }
 
 
@@ -209,7 +228,6 @@ void MainWindow::aparecerEnemigos()
 
 void MainWindow::impacto_proyectil()
 {
-
     if(lista_proyectiles.size()!=0){
         for (auto it = lista_proyectiles.begin(); it != lista_proyectiles.end();) { // notar que no incrementamos it
             bool colision = false;
@@ -218,11 +236,20 @@ void MainWindow::impacto_proyectil()
                     colision = true;
                     (*it2)->setVida((*it2)->getVida() - 20);
                     if ((*it2)->getVida() <=0) {
+                        int aparicion = rand() % 101;
+                        if (aparicion >= 95) {
+                            Recompensa=new Botin((*it2)->x(),(*it2)->y());
+                            lista_botin.push_back(Recompensa);
+                            scene->addItem(Recompensa);
+
+                        }
                         scene->removeItem(*it2);
                         it2 = lista_enemigos.erase(it2);
+
                         // eliminar enemigo de la lista y actualizar iterador
                         break; // salir del bucle si se eliminó al enemigo
                     }
+                    else it2++;
                     break;
                 }
             }
@@ -235,6 +262,7 @@ void MainWindow::impacto_proyectil()
             }
         }
     }
+
 
 }
 
@@ -253,6 +281,26 @@ void MainWindow::impacto_personaje(){
     }
 }
 
+void MainWindow::recoger_botin()
+{
+
+    if(lista_botin.size()!=0){
+
+        for(auto it=lista_botin.begin();it!=lista_botin.end();){
+            if((*it)->collidesWithItem(personaje)){
+                    qDebug("colision");
+                    personaje->tomar_pocion((*it)->getTipo());
+                    scene->removeItem(*it);
+                    it=lista_botin.erase(it);
+
+                    }
+            else it++;
+
+                }
+        }
+}
+
+
 void MainWindow::disminuir_cordura()
 //Modificar la cordura del personaje cada 1 minuto
 //Aumenta la probabilidad de que aparezca un enemigo
@@ -261,6 +309,7 @@ void MainWindow::disminuir_cordura()
     if(cordura > 0){
         personaje->setCordura(cordura-1);
     }
+    personaje->actualizarBarraCordura();
 
 }
 
@@ -268,14 +317,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     int speed = 10; // velocidad de movimiento del personaje
     personaje->actualizarPosicionBarraVida();
+    personaje->actualizarPosicionBarraCordura();
 
     if (event->key() == Qt::Key_A){
         personaje->mover(-speed,0);
         personaje->estado=3;
         personaje->sprite();
         for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
-            if(personaje->collidesWithItem((*it)->getRectCol())){
-                    personaje->mover(speed, 0);
+                    if(personaje->collidesWithItem((*it)->getRectCol())){
+
+                        personaje->mover(speed, 0);
             }
         }
     }
@@ -285,16 +336,17 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         personaje->estado=2;
         personaje->sprite();
         for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
-            if(personaje->collidesWithItem((*it)->getRectCol())){
+            if(personaje->collidesWithItem((*it)->getRectCol()))
                     personaje->mover(-speed, 0);
+            qDebug("hola");
 
             }
         }
-    }
+
     else if (event->key() == Qt::Key_W){
         personaje->mover(0, -speed);
         for(auto it=lista_obstaculos.begin();it!=lista_obstaculos.end();it++){
-            if(personaje->collidesWithItem((*it)->getRectCol())){
+            if(personaje->collidesWithItem((*it)->getRectCol())) {
                     personaje->mover(0, speed);
             }
         }

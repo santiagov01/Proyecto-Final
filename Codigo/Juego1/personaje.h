@@ -34,7 +34,7 @@ public:
 
     unsigned short int posX, posY,columnas,ancho,alto;
     unsigned short int estado, orientacion;
-    int vida_maxm, vida_actual;
+    int vida_maxm, vida_actual, vida;
     bool atacando;
     bool colisionObstaculos;
     QPixmap *pixmap;
@@ -48,6 +48,8 @@ public:
     void BarraVida(QGraphicsScene *scene);
     void actualizarPosicionBarraVida();
     void actualizarBarraVida(int daño);
+
+    void setVida_actual(int newVida_actual);
 
 public slots:
      void actualizar_sprite();

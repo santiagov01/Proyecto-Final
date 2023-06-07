@@ -26,6 +26,8 @@
 #include <QMouseEvent>
 #include "proyectil.h"
 
+#include "botin.h"
+
 
 #include <QDebug>
 
@@ -50,6 +52,7 @@ public:
     void leer_archivo(QString ruta_archivo);
     void Cargar_Arboles(string path, string path2);
     void Cargar_Obstaculos(string path1, string path2);
+    void Cargar_paredes(string path1);
 
     void EvaluarColision();
     //-----------------
@@ -64,11 +67,12 @@ private:
     //Personaje *personaje;
     Protagonista* personaje;
 
-    Arbol *arbol;//Se pueden eliminar
-    Obstaculos *obstaculo;
 
-    list<vector<int>> arboles,obstaculos;
-    list<Arbol* > lista_arboles;
+    Obstaculos *obstaculo;
+    Botin *Recompensa;
+
+    list<vector<int>> arboles,obstaculos,paredes;
+    list<Botin*> lista_botin;
     QList<Obstaculos*> lista_obstaculos;
     QList<Enemigos*> lista_enemigos;
     map<int, string> Imagenes_arbol, Imagenes_obstaculo;
@@ -77,8 +81,10 @@ private:
     QTimer *timer_cordura;
     QTimer *timer_impacto_proyectil;
     QTimer *timer_impacto_personaje;
+    QTimer *timer_recoger_recompensa;
 
     QList<Proyectil*> lista_proyectiles;
+
 
     //----------
 
@@ -91,6 +97,7 @@ public slots:
     void aparecerEnemigos();
     void impacto_proyectil();
     void impacto_personaje();
+    void recoger_botin();
 
 };
 

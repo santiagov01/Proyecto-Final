@@ -19,21 +19,24 @@ Proyectil::Proyectil(double _px, double _py, double _xdest, double _ydest)
     QTimer * move_timer = new QTimer();
     connect(move_timer,SIGNAL(timeout()),this,SLOT(movimiento()));
     move_timer->start(20);
+    columnas=0;
+    ancho=20;
+    alto=20;
+
+    imagen=new QPixmap();
+    sprite();
 }
 void Proyectil::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-
-    painter->setBrush(Qt::gray);
-    painter->setPen(Qt::NoPen);
-    painter->drawRect(boundingRect());
+    painter->drawPixmap(-ancho/2,-alto/2, *imagen,columnas,0,ancho,alto);
 }
 
 QRectF Proyectil::boundingRect() const
 {
-    return QRectF(-15,-5,30,10);
+     return QRectF(-ancho/2,-alto/2,ancho,alto);
 }
 void Proyectil::movimiento()
 {
@@ -45,4 +48,15 @@ void Proyectil::movimiento()
     double dy = STEP_SIZE* qSin(qDegreesToRadians(-qRadiansToDegrees(angle)));
     double dx = STEP_SIZE * qCos(qDegreesToRadians(-qRadiansToDegrees(angle)));
     setPos(x()+dx, y()+dy);
+}
+
+void Proyectil::sprite()
+{
+    imagen->load(QString::fromStdString(":/Sprites PJ/Proyectil.png"));
+
+}
+void Proyectil::actualizar_sprite(){
+    columnas+=ancho;
+    if (columnas>=imagen->size().width()) columnas=0;
+    this->update(-ancho/2,-alto/2,ancho,alto);
 }

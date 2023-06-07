@@ -15,7 +15,10 @@ public:
 
     int getDaño() const;
 
-        private:
+
+    void botin();
+
+private:
     bool direction;
     double angle;
     double theta;

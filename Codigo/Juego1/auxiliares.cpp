@@ -36,11 +36,12 @@ int saltos(string name_file){
 
 
 }
-void Cargar_datos(string name_file, list<vector<int>> *lista)
-{
+void Leer_paredes(string name_file, list<vector<int>>*lista){
+
+
     string linea;
     ifstream fin;
-    string tipo, casillaX,casillaY, posX, posY;
+    string Inicialx, Inicialy,Finalx, Finaly;
     char delimitador = ';';
     int salto;
     salto = saltos(name_file);
@@ -52,7 +53,59 @@ void Cargar_datos(string name_file, list<vector<int>> *lista)
         }
         getline(fin,linea); //ELIMINAR encabezdo
 
-        for(int i = 1; i<salto;i++){
+        for(int i = 1; i<=salto;i++){
+            getline(fin,linea);
+            stringstream inputstringstream(linea); //convierte linea a sstream
+            getline(inputstringstream,Inicialx,delimitador);
+            getline(inputstringstream,Inicialy,delimitador);
+            getline(inputstringstream,Finalx,delimitador);
+            getline(inputstringstream,Finaly,delimitador);
+
+            vector<int> datos;
+            datos.push_back(stoi(Inicialx));
+            datos.push_back(stoi(Inicialy));
+            datos.push_back(stoi(Finalx));
+            datos.push_back(stoi(Finaly));
+
+            lista->push_back(datos);
+        }
+        fin.close();
+
+
+    }
+    catch (char c){
+        cout<<"Error # "<<c<<": ";
+
+        if(c=='2'){
+            cout<<"Error al abrir el archivo para lectura.\n";
+        }
+    }
+    catch (...){
+        cout<<"Error no definido\n";
+    }
+
+}
+
+
+
+
+void Cargar_datos(string name_file, list<vector<int>> *lista)
+{
+    string linea;
+    ifstream fin;
+    string tipo, casillaX,casillaY, posX, posY,Zvalue;
+    char delimitador = ';';
+    int salto;
+    salto = saltos(name_file);
+    try{
+
+        fin.open(name_file);        //abre el archivo para lectura
+        if(!fin.is_open()){
+            throw '2';
+        }
+        getline(fin,linea); //ELIMINAR encabezdo
+
+        for(int i = 1; i<=salto;i++){
             getline(fin,linea);
             stringstream inputstringstream(linea); //convierte linea a sstream
             getline(inputstringstream,tipo,delimitador);
@@ -60,12 +113,14 @@ void Cargar_datos(string name_file, list<vector<int>> *lista)
             getline(inputstringstream,casillaY,delimitador);
             getline(inputstringstream,posX,delimitador);
             getline(inputstringstream,posY,delimitador);
+            getline(inputstringstream,Zvalue,delimitador);
 
             // Crear vector temporal y cargar datos
             vector<int> datos;
             datos.push_back(stoi(tipo));
             datos.push_back(stoi(posX));
             datos.push_back(stoi(posY));
+            datos.push_back(stoi(Zvalue));
 
             // Agregar vector a la lista
             lista->push_back(datos);

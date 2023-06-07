@@ -18,6 +18,7 @@ public:
     ~Protagonista();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+    void tomar_pocion(int tipo);
 
 
 
@@ -38,6 +39,12 @@ public:
     bool moverUy;
     bool moverDy;
     int arma;
+
+    void BarraCordura(QGraphicsScene *scene);
+    void actualizarPosicionBarraCordura();
+    void actualizarBarraCordura();
+
+    QGraphicsRectItem *barraCorduraItem;
 
 private:
     int cordura;

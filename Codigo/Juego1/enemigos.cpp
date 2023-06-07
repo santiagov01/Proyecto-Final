@@ -46,45 +46,19 @@ int Enemigos::getDaño() const
     return daño;
 }
 
-void Enemigos::movimiento()
+void Enemigos::botin()
 {
 
-    /*
-    qreal newposx = x()+10;
-
-    if(x()>=posini && direction){
-        setPos(x()+10,y());
-        estado = 1;
-        this->sprite();
-    }else if(x()>posini+100){
-        setPos(x()-10,y());
-        estado = 2;
-        this->sprite();
-        direction = false;
-    }
-    */
-
-    /*
-    double STEP_SIZE = 2;
-    if(theta <=0) dir = true;
-    else if(theta >=360) dir = false;
-
-    if(dir){
-        theta+=5;
-    }else if(!dir){
-        theta-=5;
-    }
-    double dy = STEP_SIZE* qSin(qDegreesToRadians(theta));
-    double dx = STEP_SIZE * qCos(qDegreesToRadians(theta));
-    std::cout<<posX<<std::endl;
-    setPos(x()+dx, y()+dy);
-    */
 
 
-    //Existen dos opciones para obtener la posición del jugador
-    //1. Pasar por parámetro el objeto jugador y obtener su posición
-    //2. Invocar movimiento() en terreno, así se adquiere la posición de inmediato.
 
+
+
+
+}
+
+void Enemigos::movimiento()
+{
 
     double STEP_SIZE = 5;
     //500 y 200 corresponden a la posicion x,y del jugador principal

@@ -27,6 +27,8 @@ Personaje::Personaje(string _path,int Ancho, int Alto,int _vida)
     AnimacionTimer=new QTimer();
     AnimacionTimer->start(140);
     connect(AnimacionTimer,&QTimer::timeout,this,&Personaje::actualizar_sprite);
+
+    vida = ((float)vida_actual / (float)vida_maxm) * 100.0;
 }
 
 Personaje::~Personaje()
@@ -63,6 +65,11 @@ void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 }
 
+void Personaje::setVida_actual(int newVida_actual)
+{
+    vida_actual = newVida_actual;
+}
+
 void Personaje::setColisionObstaculos(bool newColisionObstaculos)
 {
     colisionObstaculos = newColisionObstaculos;
@@ -70,9 +77,9 @@ void Personaje::setColisionObstaculos(bool newColisionObstaculos)
 
 void Personaje::BarraVida(QGraphicsScene *scene) {
     // Crea un objeto QGraphicsRectItem para la barra de vida
-    float ancho = ((float)vida_actual / (float)vida_maxm) * 100.0;
+
     // Configura la posición y dimensiones de la barra de vida
-    barraVidaItem->setRect(-ancho/4, 0, ancho, 5); // Ajusta el ancho del rectángulo
+    barraVidaItem->setRect(-vida/4, 0, vida, 5); // Ajusta el ancho del rectángulo
 
     // Configura el color de la barra de vida
     QBrush brush(Qt::red);
@@ -88,17 +95,17 @@ void Personaje::BarraVida(QGraphicsScene *scene) {
 
 void Personaje::actualizarPosicionBarraVida() {
     // Actualiza la posición de la barra de vida en función de la posición actual del personaje
-    barraVidaItem->setPos(posX - ancho/4, posY - alto - 10);
+    barraVidaItem->setPos(posX - vida/4, posY - 45);
 }
 
 
 void Personaje::actualizarBarraVida(int daño) {
     // Calcula el ancho de la barra de vida en función de la vida actual
     vida_actual=vida_actual-daño;
-    float ancho = ((float)vida_actual / (float)vida_maxm) * 100.0;
+    vida = ((float)vida_actual / (float)vida_maxm) * 100.0;
 
     // Actualiza el rectángulo de la barra de vida con el nuevo ancho
-    barraVidaItem->setRect(-ancho/4, 0, ancho, 5);
+    barraVidaItem->setRect(-vida/4, 0, vida, 5);
     update();
 }
 

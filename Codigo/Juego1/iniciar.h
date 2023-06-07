@@ -9,7 +9,7 @@
 #include <QMainWindow>
 #include <QVideoWidget>
 #include <QMediaPlayer>
-#include "mision.h"
+
 
 
 
@@ -35,7 +35,7 @@ private:
     QMediaPlayer *player;
     QVideoWidget  *Cinematica;
     QMainWindow* mainwindow;
-    Mision *Janukra_Quest;
+    //Mision *Janukra_Quest;
 
 private slots:
     void Verificar_Estado();
